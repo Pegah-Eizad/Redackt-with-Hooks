@@ -85,8 +85,8 @@ export default class Header extends Component {
         this.props.getSortType(temp[id].title);
     };
 
-    setStarIcon = (activeSub) => {
-        return this.props.isActiveSubStarred(activeSub) ? yellowStarIcon : star;
+    setStarIcon = () => {
+        return this.props.isActiveSubStarred() ? yellowStarIcon : star;
     }
 
     render() {
@@ -103,7 +103,7 @@ export default class Header extends Component {
                         <h1 id={titleID}>{title}</h1>
                     </div>
                     <div className="subhead">
-                        <img src= {this.setStarIcon(this.props.activeSub)} alt="star-icon" onClick={() => this.props.toggleStar()}/>
+                        <img src= {this.setStarIcon()} alt="star-icon" onClick={() => this.props.toggleStar()}/>
                         <span className="numberOfSubs">
                             <img src={person} alt="person-icon"/>
                             <p className={"subtitle"}>{this.props.subCount}</p>

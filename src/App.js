@@ -139,7 +139,7 @@ class App extends Component {
       return 
     } else {
       let newSubs = oldSubs.map(sub => {
-        return (sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub});
+        return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
       });
       this.setState(prevState => {
         return {
@@ -150,10 +150,13 @@ class App extends Component {
     }      
   }
 
-  activeSubStarredStatus = (activeSub) => {
+  activeSubStarredStatus = () => {
     const oldSubs = this.readCookie('subs');
-    const isActiveSubStarred =  oldSubs.find(sub =>  sub.name === activeSub ).isStarred;
-    return isActiveSubStarred;
+    const activeSub = this.state.activeSub;
+    let activeSubState = oldSubs.find(sub =>  {
+      return sub.name === activeSub
+     } );
+    return activeSubState ? activeSubState.isStarred : false;
   }
 
   componentWillMount() {
