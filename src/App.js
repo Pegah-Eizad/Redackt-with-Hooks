@@ -8,38 +8,6 @@ library.add(faAngleUp,faAngleDown,faCheck);
 
 class App extends Component {
   state = {
-    subReddits: [
-      {
-        name: "AskReddit",
-        isStarred: false,
-        id: 0
-      },
-      {
-        name: "all",
-        isStarred: false,
-        id: 1
-      },
-      {
-        name: "RocketLeague",
-        isStarred: false,
-        id: 2
-      },
-      {
-        name: "pics",
-        isStarred: false,
-        id: 3
-      },
-      {
-        name: "reactjs",
-        isStarred: false,
-        id: 4
-      },
-      {
-        name: "videos",
-        isStarred: false,
-        id: 5
-      }
-    ],
     sortType: "top",
     activeSub : "AskReddit",
     activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
@@ -58,30 +26,7 @@ class App extends Component {
     this.openSideBar();
   };
 
-  addSub = (name) => {
-    let oldSubs = this.readCookie('subs');
-    let newSubs = [...oldSubs, {"name": name, "id": oldSubs.length}];
-    this.setState(prevState => {
-      return {
-        subReddits: newSubs,
-        activeSub: name,
-        activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
-      }
-    });
-    this.setCookie('subs', newSubs);
-  };
-
-  removeSub = (subID) => {
-    let oldSubs = this.readCookie('subs');
-    let updatedPosts = [...oldSubs];
-    updatedPosts.splice(subID, 1);
-    this.setState(prevState => {
-      return {
-        subReddits: updatedPosts
-      }
-    });
-    this.setCookie('subs', updatedPosts);
-  };
+  
 
   getSortType = (sortType) => {
     this.setState(prevState => {
@@ -101,86 +46,35 @@ class App extends Component {
     this.setCookie('darkMode', this.state.darkMode);
   };
 
-  openSideBar = () => {
-    this.setState(prevState => {
-      return {
-        openSidebar: !prevState.openSidebar
-      }
-    });
-  };
 
-  setCookie = (name, value) => {
-    let cookie = [
-      name,
-      '=',
-      JSON.stringify(value)
-    ].join('');
-    document.cookie = cookie;
-  };
+  // setCookie = (name, value) => {
+  //   let cookie = [
+  //     name,
+  //     '=',
+  //     JSON.stringify(value)
+  //   ].join('');
+  //   document.cookie = cookie;
+  // };
 
-  readCookie = (name) => {
-    let nameEQ = name + "=";
-    let ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) {
-        return JSON.parse(
-            c.substring(nameEQ.length, c.length)
-        );
-      }
-    }
-    return null;
-  };
-
-  toggleStar = () => {
-    let oldSubs = this.readCookie('subs');
-    if (oldSubs[0] === null) {
-      return 
-    } else {
-      let newSubs = oldSubs.map(sub => {
-        return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
-      });
-      this.setState(prevState => {
-        return {
-          subReddits: newSubs,
-        }
-      });
-      this.setCookie('subs', newSubs);
-    }      
-  }
-
-  activeSubStarredStatus = () => {
-    const oldSubs = this.readCookie('subs');
-    const activeSub = this.state.activeSub;
-    let activeSubState = oldSubs.find(sub =>  {
-      return sub.name === activeSub
-     } );
-    return activeSubState ? activeSubState.isStarred : false;
-  }
-
-  componentWillMount() {
-    let subs = this.readCookie('subs');
-    let darkMode = this.readCookie('darkMode');
-    if (!subs) {
-      this.setCookie('subs', this.state.subReddits);
-    }
-    if (!darkMode) {
-      this.setCookie('darkMode', false);
-    }
-  }
+  // readCookie = (name) => {
+  //   let nameEQ = name + "=";
+  //   let ca = document.cookie.split(';');
+  //   for(let i = 0; i < ca.length; i++) {
+  //     let c = ca[i];
+  //     while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+  //     if (c.indexOf(nameEQ) === 0) {
+  //       return JSON.parse(
+  //           c.substring(nameEQ.length, c.length)
+  //       );
+  //     }
+  //   }
+  //   return null;
+  // };
 
   render() {
     return (
-      <div className={!this.readCookie('darkMode') ? 'App theme-wrapper theme-light' : 'App theme-wrapper theme-dark'}>
-        <Sidebar
-            subReddits={this.readCookie("subs")}
-            // subReddits={this.state.subReddits}
-            activeSub={this.state.activeSub}
-            changeActiveSub={this.changeActiveSub}
-            addSub={this.addSub}
-            removeSub={this.removeSub}
-        />
+      <div className={'App theme-wrapper theme-dark'}>
+        <Sidebar/>
         <MainBody
             activeSub={this.state.activeSub}
             activeSubURL={this.state.activeSubURL}
