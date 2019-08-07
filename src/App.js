@@ -180,8 +180,6 @@ class App extends Component {
             changeActiveSub={this.changeActiveSub}
             addSub={this.addSub}
             removeSub={this.removeSub}
-            openSidebar={this.state.openSidebar}
-            openBar={this.openSideBar}
         />
         <MainBody
             activeSub={this.state.activeSub}

@@ -27,7 +27,7 @@ export default class Sidebar extends Component {
 	handleKeyPress = (e) => {
 		const { subredditInput } = this.state;
 		if (e.which === 13) {
-			this.props.addSub(subredditInput);
+			//dispatch add sub action
 		}
 		e.defaultValue = "";
 	};
@@ -49,7 +49,8 @@ export default class Sidebar extends Component {
 		if (sub.isStarred) {
 			return (
 				<li className={sub.name === this.props.activeSub ? 'active' : ''}
-				    onClick={() => this.props.changeActiveSub(sub.name)}>
+				//    dispatch change active sub action 
+				    onClick> 
 				  <span># {sub.name}</span>
 				</li>
 			);
@@ -59,15 +60,11 @@ export default class Sidebar extends Component {
 	render() {
 		return (
 			<React.Fragment>
-			<div className={this.props.openSidebar  ? 'sidebar' : 'sidebar mobile'}>
+			<div className={'sidebar'}>
 				<div className="sidebar-header">
 					<div className="header-bell">
 						<h3>Redackt</h3>
 						<img src={bell} alt="bell-icon"/>
-					</div>
-					<div className="header-close" onClick={() => this.props.openBar()}>
-						<h3>Redackt</h3>
-						<img src={addFileIcon} alt="close-icon"/>
 					</div>
 					<p>romanparkhomenko</p>
 				</div>
@@ -123,7 +120,8 @@ export default class Sidebar extends Component {
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
-								<button onClick={() => this.props.removeSub(index)}>
+									{/* dispatch remove sub  */}
+								<button onClick>
 									<img src={remove} alt="Remove Subreddit"/>
 								</button>
 								</span>
