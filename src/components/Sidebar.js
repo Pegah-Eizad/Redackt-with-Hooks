@@ -147,18 +147,11 @@ export default class Sidebar extends Component {
 			activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
 		  }
 		});
-	  }
+	}
 
 	componentWillMount() {
 		let subs = this.state.subreddits;
-		// let darkMode = this.readCookie('darkMode');
-		// if (!subs) {
-		//   this.setCookie('subs', this.state.subReddits);
-		// }
-		// if (!darkMode) {
-		//   this.setCookie('darkMode', false);
-		// }
-	  }
+	}
 
 	render() {
 		return (

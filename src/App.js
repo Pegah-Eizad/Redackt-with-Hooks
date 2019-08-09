@@ -46,31 +46,6 @@ class App extends Component {
     this.setCookie('darkMode', this.state.darkMode);
   };
 
-
-  // setCookie = (name, value) => {
-  //   let cookie = [
-  //     name,
-  //     '=',
-  //     JSON.stringify(value)
-  //   ].join('');
-  //   document.cookie = cookie;
-  // };
-
-  // readCookie = (name) => {
-  //   let nameEQ = name + "=";
-  //   let ca = document.cookie.split(';');
-  //   for(let i = 0; i < ca.length; i++) {
-  //     let c = ca[i];
-  //     while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-  //     if (c.indexOf(nameEQ) === 0) {
-  //       return JSON.parse(
-  //           c.substring(nameEQ.length, c.length)
-  //       );
-  //     }
-  //   }
-  //   return null;
-  // };
-
   render() {
     return (
       <div className={'App theme-wrapper theme-dark'}>
