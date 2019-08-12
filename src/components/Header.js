@@ -95,7 +95,7 @@ export default class Header extends Component {
         return (
             <React.Fragment>
             <header>
-                <div className="open-sidebar" onClick={() => this.props.openSideBar()}>
+                <div className="open-sidebar">
                     <img src={headshot} alt="open-sidebar"/>
                 </div>
                 <div className="header-info">
@@ -103,7 +103,7 @@ export default class Header extends Component {
                         <h1 id={titleID}>{title}</h1>
                     </div>
                     <div className="subhead">
-                        <img src= {this.setStarIcon()} alt="star-icon" onClick={() => this.props.toggleStar()}/>
+                        {/* <img src= {this.setStarIcon()} alt="star-icon" onClick={() => this.props.toggleStar()}/> */}
                         <span className="numberOfSubs">
                             <img src={person} alt="person-icon"/>
                             <p className={"subtitle"}>{this.props.subCount}</p>

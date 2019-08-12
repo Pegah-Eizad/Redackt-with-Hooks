@@ -5,13 +5,45 @@ import add from '../images/add-icon.svg';
 import remove from '../images/remove-icon.svg';
 import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
-import addFileIcon from "../images/add-file-icon.svg";
 
 export default class Sidebar extends Component {
 	state = {
-		subreddits: this.props.subReddits,
+		subreddits: [
+			{
+			  name: "AskReddit",
+			  isStarred: false,
+			  id: 0
+			},
+			{
+			  name: "all",
+			  isStarred: false,
+			  id: 1
+			},
+			{
+			  name: "RocketLeague",
+			  isStarred: false,
+			  id: 2
+			},
+			{
+			  name: "pics",
+			  isStarred: false,
+			  id: 3
+			},
+			{
+			  name: "reactjs",
+			  isStarred: false,
+			  id: 4
+			},
+			{
+			  name: "videos",
+			  isStarred: false,
+			  id: 5
+			}
+		  ],
 		subredditInput: "",
-		subredditInputHasFocus: false
+		subredditInputHasFocus: false,
+		activeSub : "AskReddit",
+		activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
 	};
 
 	focusSubredditInput = () => {
@@ -27,7 +59,7 @@ export default class Sidebar extends Component {
 	handleKeyPress = (e) => {
 		const { subredditInput } = this.state;
 		if (e.which === 13) {
-			this.props.addSub(subredditInput);
+			//dispatch add sub action
 		}
 		e.defaultValue = "";
 	};
@@ -43,31 +75,92 @@ export default class Sidebar extends Component {
 			subredditInput: "",
 			subredditInputHasFocus: false
 		});
+	}
+
+	addSub = (name) => {
+		let oldSubs = this.readCookie('subs');
+		let newSubs = [...oldSubs, {"name": name, "id": oldSubs.length}];
+		this.setState(prevState => {
+		  return {
+			subReddits: newSubs,
+			activeSub: name,
+			activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
+		  }
+		});
+		this.setCookie('subs', newSubs);
 	};
+	
+	removeSub = (subID) => {
+		let oldSubs = this.readCookie('subs');
+		let updatedPosts = [...oldSubs];
+		updatedPosts.splice(subID, 1);
+		this.setState(prevState => {
+		  return {
+			subReddits: updatedPosts
+		  }
+		});
+		this.setCookie('subs', updatedPosts);
+	};
+
+	toggleStar = () => {
+		let oldSubs = this.readCookie('subs');
+		if (oldSubs[0] === null) {
+		  return 
+		} else {
+		  let newSubs = oldSubs.map(sub => {
+			return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
+		  });
+		  this.setState(prevState => {
+			return {
+			  subReddits: newSubs,
+			}
+		  });
+		  this.setCookie('subs', newSubs);
+		}      
+	}
+	
+	activeSubStarredStatus = () => {
+		const oldSubs = this.readCookie('subs');
+		const activeSub = this.state.activeSub;
+		let activeSubState = oldSubs.find(sub =>  {
+		  return sub.name === activeSub
+		 } );
+		return activeSubState ? activeSubState.isStarred : false;
+	  }
 
 	displayStarredSubs = (sub) => {
 		if (sub.isStarred) {
 			return (
-				<li className={sub.name === this.props.activeSub ? 'active' : ''}
-				    onClick={() => this.props.changeActiveSub(sub.name)}>
+				<li className={sub.name === this.state.activeSub ? 'active' : ''}
+				//    dispatch change active sub action 
+				    onClick> 
 				  <span># {sub.name}</span>
 				</li>
 			);
 		}
 	}
 
+	changeActiveSub = (name) => {
+		this.setState(prevState => {
+		  return {
+			activeSub: name,
+			activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
+		  }
+		});
+	}
+
+	componentWillMount() {
+		let subs = this.state.subreddits;
+	}
+
 	render() {
 		return (
 			<React.Fragment>
-			<div className={this.props.openSidebar  ? 'sidebar' : 'sidebar mobile'}>
+			<div className={'sidebar'}>
 				<div className="sidebar-header">
 					<div className="header-bell">
 						<h3>Redackt</h3>
 						<img src={bell} alt="bell-icon"/>
-					</div>
-					<div className="header-close" onClick={() => this.props.openBar()}>
-						<h3>Redackt</h3>
-						<img src={addFileIcon} alt="close-icon"/>
 					</div>
 					<p>romanparkhomenko</p>
 				</div>
@@ -104,7 +197,7 @@ export default class Sidebar extends Component {
 					<span>Starred</span>
 				</div>
 				<ul>
-				    {this.props.subReddits.map((subReddit) =>
+				    {this.state.subreddits.map((subReddit) =>
 					  this.displayStarredSubs(subReddit)
 					)}
 				</ul>
@@ -114,16 +207,17 @@ export default class Sidebar extends Component {
 				</div>
 				<ul>
 					{/* Subreddit List */}
-					{this.props.subReddits.map( (subReddit, index) => {
+					{this.state.subreddits.map( (subReddit, index) => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
-								className={(subReddit.name === this.props.activeSub) ? 'active' : ''}
-								onClick={() => this.props.changeActiveSub(subReddit.name)}
+								className={(subReddit.name === this.state.activeSub) ? 'active' : ''}
+								onClick={() => this.changeActiveSub(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
-								<button onClick={() => this.props.removeSub(index)}>
+									{/* dispatch remove sub  */}
+								<button onClick>
 									<img src={remove} alt="Remove Subreddit"/>
 								</button>
 								</span>
