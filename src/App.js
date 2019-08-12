@@ -4,9 +4,12 @@ import Sidebar from './components/Sidebar.js';
 import MainBody from './components/MainBody.js';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleUp, faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons'
-library.add(faAngleUp,faAngleDown,faCheck);
+import defaultSubreddits from './constants/subreddits.defaults';
+import generateRedditUrl from './helpers/generateRedditUrl';;
+library.add(faAngleUp, faAngleDown, faCheck);
 
 class App extends Component {
+  
   state = {
     sortType: "top",
     activeSub : "AskReddit",
@@ -20,21 +23,19 @@ class App extends Component {
     this.setState(prevState => {
       return {
         activeSub: name,
-        activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
+        activeSubURL: generateRedditUrl(name, this.state.sortType)
       }
     });
     this.openSideBar();
   };
 
-  
-
   getSortType = (sortType) => {
     this.setState(prevState => {
       return {
         sortType: sortType,
-        activeSubURL: "https://www.reddit.com/r/" + this.state.activeSub + "/"+this.state.sortType+".json?limit=10&raw_json=1"
-      }
-    })
+        activeSubURL: generateRedditUrl(this.state.activeSub, this.state.sortType)
+      };
+    });
   };
 
   getDarkMode = () => {
