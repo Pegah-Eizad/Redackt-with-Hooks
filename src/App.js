@@ -4,7 +4,6 @@ import Sidebar from './components/Sidebar.js';
 import MainBody from './components/MainBody.js';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleUp, faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons'
-import defaultSubreddits from './constants/subreddits.defaults';
 import generateRedditUrl from './helpers/generateRedditUrl';;
 library.add(faAngleUp, faAngleDown, faCheck);
 

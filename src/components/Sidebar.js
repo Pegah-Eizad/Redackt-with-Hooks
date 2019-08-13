@@ -78,7 +78,7 @@ export default class Sidebar extends Component {
 	}
 
 	addSub = (name) => {
-		let oldSubs = this.readCookie('subs');
+		let oldSubs = this.state.subreddits;
 		let newSubs = [...oldSubs, {"name": name, "id": oldSubs.length}];
 		this.setState(prevState => {
 		  return {
@@ -87,11 +87,10 @@ export default class Sidebar extends Component {
 			activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
 		  }
 		});
-		this.setCookie('subs', newSubs);
 	};
 	
 	removeSub = (subID) => {
-		let oldSubs = this.readCookie('subs');
+		let oldSubs = this.state.subreddits;
 		let updatedPosts = [...oldSubs];
 		updatedPosts.splice(subID, 1);
 		this.setState(prevState => {
@@ -99,11 +98,10 @@ export default class Sidebar extends Component {
 			subReddits: updatedPosts
 		  }
 		});
-		this.setCookie('subs', updatedPosts);
 	};
 
 	toggleStar = () => {
-		let oldSubs = this.readCookie('subs');
+		let oldSubs = this.state.subreddits;
 		if (oldSubs[0] === null) {
 		  return 
 		} else {
@@ -115,12 +113,11 @@ export default class Sidebar extends Component {
 			  subReddits: newSubs,
 			}
 		  });
-		  this.setCookie('subs', newSubs);
 		}      
 	}
 	
 	activeSubStarredStatus = () => {
-		const oldSubs = this.readCookie('subs');
+		const oldSubs = this.state.subreddits;
 		const activeSub = this.state.activeSub;
 		let activeSubState = oldSubs.find(sub =>  {
 		  return sub.name === activeSub
@@ -150,7 +147,7 @@ export default class Sidebar extends Component {
 	}
 
 	componentWillMount() {
-		let subs = this.state.subreddits;
+		// let subs = this.state.subreddits;
 	}
 
 	render() {
