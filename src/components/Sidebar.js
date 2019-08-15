@@ -5,6 +5,7 @@ import add from '../images/add-icon.svg';
 import remove from '../images/remove-icon.svg';
 import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
+import generateRedditUrl from '../helpers/generateRedditUrl';
 
 export default class Sidebar extends Component {
 	state = {
@@ -43,6 +44,7 @@ export default class Sidebar extends Component {
 		subredditInput: "",
 		subredditInputHasFocus: false,
 		activeSub : "AskReddit",
+		sortType: "top",
 		activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
 	};
 
@@ -84,7 +86,7 @@ export default class Sidebar extends Component {
 		  return {
 			subReddits: newSubs,
 			activeSub: name,
-			activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
+			activeSubURL: "https://www.reddit.com/r/" + name + "/"+ this.state.sortType+".json?limit=10&raw_json=1"
 		  }
 		});
 	};
@@ -138,13 +140,14 @@ export default class Sidebar extends Component {
 	}
 
 	changeActiveSub = (name) => {
-		this.setState(prevState => {
-		  return {
-			activeSub: name,
-			activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
-		  }
-		});
-	}
+    this.setState(prevState => {
+      return {
+        activeSub: name,
+        activeSubURL: generateRedditUrl(name, this.state.sortType)
+      }
+    });
+    // this.openSideBar();
+  };
 
 	componentWillMount() {
 		// let subs = this.state.subreddits;
@@ -214,7 +217,7 @@ export default class Sidebar extends Component {
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
 									{/* dispatch remove sub  */}
-								<button onClick>
+								<button>
 									<img src={remove} alt="Remove Subreddit"/>
 								</button>
 								</span>
