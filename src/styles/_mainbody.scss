@@ -2,7 +2,7 @@
 // MAIN SECTION WITH AND WITHOUT OPEN THREAD
 .main {
   display: grid;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   grid-template-rows: [header-row] auto [main] 1fr [message-bar] auto;
   grid-template-columns: [main-col] minmax(min-content, 60%) [thread] minmax(min-content, 1fr);
