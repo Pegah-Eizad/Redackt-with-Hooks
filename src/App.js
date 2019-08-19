@@ -26,6 +26,10 @@ class App extends Component {
   //   });
   // };
 
+  updateActiveSubName = (sub) => {
+    this.setState(activeSub: sub)
+  }
+
   getDarkMode = () => {
     this.setState(prevState => {
       return {
@@ -38,7 +42,7 @@ class App extends Component {
   render() {
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar/>
+        <Sidebar updateActiveSubName = {this.updateActiveSubName}/>
         <MainBody
             activeSub={this.state.activeSub}
             activeSubURL={this.state.activeSubURL}
@@ -54,5 +58,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

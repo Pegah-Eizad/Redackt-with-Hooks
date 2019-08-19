@@ -5,11 +5,7 @@ import add from '../images/add-icon.svg';
 import remove from '../images/remove-icon.svg';
 import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
-<<<<<<< HEAD
-import generateRedditUrl from '../helpers/generateRedditUrl';
-=======
 import { getPosts } from '../store/actions/Sidebar.Actions.js'
->>>>>>> origin/master
 
 export default class Sidebar extends Component {
 	state = {
@@ -143,15 +139,19 @@ export default class Sidebar extends Component {
 		}
 	}
 
-	updateActiveSub = (name) => {
-		this.props.dispatch(getPosts(subreddit));
+	// updateActiveSub = (name) => {
+		// this.props.dispatch(getPosts(subreddit));
 		// this.setState(prevState => {
 		//   return {
 		// 	activeSub: name,
 		// 	activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
 		//   }
 		// });
-	}
+	// }
+
+	updateActiveSubName = (sureddit) => {
+         this.props.updateActiveSubName(subreddit);
+    };
 
 	componentWillMount() {
 		// let subs = this.state.subreddits;
@@ -216,7 +216,7 @@ export default class Sidebar extends Component {
 						  return(
 							<li
 								className={(subReddit.name === this.state.activeSub) ? 'active' : ''}
-								onClick={() => this.updateActiveSub(subReddit.name)}
+								onClick={() => this.updateActiveSubName(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
