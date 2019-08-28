@@ -27,7 +27,8 @@ class App extends Component {
   // };
 
   updateActiveSubName = (sub) => {
-    this.setState(activeSub: sub)
+    // this.setState(activeSub: sub)
+    console.log('hi');
   }
 
   getDarkMode = () => {

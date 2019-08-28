@@ -149,8 +149,8 @@ export default class Sidebar extends Component {
 		// });
 	// }
 
-	updateActiveSubName = (sureddit) => {
-         this.props.updateActiveSubName(subreddit);
+	updateActiveSubName = (subreddit) => {
+         this.props.dispatch(updateActiveSubName(subreddit));
     };
 
 	componentWillMount() {
