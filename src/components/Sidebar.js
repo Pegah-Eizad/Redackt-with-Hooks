@@ -5,7 +5,7 @@ import add from '../images/add-icon.svg';
 import remove from '../images/remove-icon.svg';
 import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
-import { getPosts } from '../store/actions/Sidebar.Actions.js'
+import { updateActiveSubName } from '../store/actions.js/'
 
 export default class Sidebar extends Component {
 	state = {
