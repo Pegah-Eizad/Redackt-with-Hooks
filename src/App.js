@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar.js';
 import MainBody from './components/MainBody.js';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleUp, faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons'
-import generateRedditUrl from './helpers/generateRedditUrl';;
+import generateRedditUrl from './helpers/generateRedditUrl';
 library.add(faAngleUp, faAngleDown, faCheck);
 
 class App extends Component {
@@ -17,25 +17,19 @@ class App extends Component {
     openSidebar: true
   };
 
-  //Function to handle sub change from Sidebar.
-  changeActiveSub = (name) => {
-    this.setState(prevState => {
-      return {
-        activeSub: name,
-        activeSubURL: generateRedditUrl(name, this.state.sortType)
-      }
-    });
-    this.openSideBar();
-  };
+  // getSortType = (sortType) => {
+  //   this.setState(prevState => {
+  //     return {
+  //       sortType: sortType,
+  //       activeSubURL: this.generateRedditUrl(this.state.activeSub, this.state.sortType)
+  //     };
+  //   });
+  // };
 
-  getSortType = (sortType) => {
-    this.setState(prevState => {
-      return {
-        sortType: sortType,
-        activeSubURL: generateRedditUrl(this.state.activeSub, this.state.sortType)
-      };
-    });
-  };
+  updateActiveSubName = (sub) => {
+    // this.setState(activeSub: sub)
+    console.log('hi');
+  }
 
   getDarkMode = () => {
     this.setState(prevState => {
@@ -49,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar/>
+        <Sidebar updateActiveSubName = {this.updateActiveSubName}/>
         <MainBody
             activeSub={this.state.activeSub}
             activeSubURL={this.state.activeSubURL}
@@ -65,5 +59,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
