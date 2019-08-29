@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './styles/main.scss';
 import Sidebar from './components/Sidebar.js';
 import MainBody from './components/MainBody.js';
@@ -9,14 +10,6 @@ library.add(faAngleUp, faAngleDown, faCheck);
 
 class App extends Component {
   
-  state = {
-    sortType: "top",
-    activeSub : "AskReddit",
-    activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
-    darkMode: false,
-    openSidebar: true
-  };
-
   // getSortType = (sortType) => {
   //   this.setState(prevState => {
   //     return {
