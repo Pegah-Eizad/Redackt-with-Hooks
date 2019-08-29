@@ -1,6 +1,6 @@
-import * as sidebarActions from '../store/actions/Sidebar.Actions.js';
-import generateRedditUrl from '../../helpers/generateRedditUrl';
-import RedditPost from '../../components/RedditPost.js';
+import * as actions from '../store/actions.js';
+import generateRedditUrl from '../helpers/generateRedditUrl';
+import RedditPost from '../components/RedditPost.js';
 
 const initialState = {
     state = {
@@ -44,10 +44,11 @@ const initialState = {
     }
 };
 
-export const sidebarReducer = (state=initialState, action) => {
-    if (action.type === sidebarActions.GET_POSTS) {
+export const redacktReducer = (state=initialState, action) => {
+    if (action.type === actions.UPDATE_ACTIVE_SUB_NAME) {
         return Object.assign({}, state, {
-            activeSubURL: generateRedditUrl(this.action.subreddit, this.state.sortType)
+			activeSub: action.subreddit,
+            activeSubURL: generateRedditUrl(action.subreddit, state.sortType)
         });
     }
     // else if (action.type === actions.ADD_CARD) {
