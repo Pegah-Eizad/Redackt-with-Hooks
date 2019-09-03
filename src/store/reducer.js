@@ -4,9 +4,6 @@ import RedditPost from '../components/RedditPost.js';
 
 const initialState = {
     state = {
-			activeSub: "AskReddit",
-			activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
-			sortType: "top",
 			sidebar: {
 				subreddits: [
 				{

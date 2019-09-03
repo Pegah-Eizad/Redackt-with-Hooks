@@ -9,7 +9,7 @@ import generateRedditUrl from './helpers/generateRedditUrl';
 library.add(faAngleUp, faAngleDown, faCheck);
 
 class App extends Component {
-  
+
   // getSortType = (sortType) => {
   //   this.setState(prevState => {
   //     return {
@@ -36,22 +36,22 @@ class App extends Component {
   render() {
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar updateActiveSubName = {this.updateActiveSubName}/>
-        <MainBody
-            activeSub={this.state.activeSub}
-            activeSubURL={this.state.activeSubURL}
-            getIsActiveSubStarred={this.activeSubStarredStatus}
-            getSubCount={this.getSubCount}
-            sortType={this.state.sortType}
-            getSortType={this.getSortType}
-            getDarkMode={this.getDarkMode}
-            openSideBar={this.openSideBar}
-            toggleStar={this.toggleStar}
-        />
+        <Sidebar updateActiveSubName = {this.updateActiveSubName} />
+        <MainBody />
       </div>
     );
   }
 }
 
 
-export default App;
+App.defaultProps = {
+    activeSub: "AskReddit",
+    activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
+    sortType: "top"
+};
+
+const mapStateToProps = state => ({
+  sidebar: state.sidebar
+});
+
+export default connect(mapStateToProps)(App);
