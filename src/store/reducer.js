@@ -3,7 +3,7 @@ import generateRedditUrl from '../helpers/generateRedditUrl';
 import RedditPost from '../components/RedditPost.js';
 
 const initialState = {
-    state = {
+    state: {
 			sidebar: {
 				subreddits: [
 				{
@@ -41,7 +41,7 @@ const initialState = {
 			subredditInputHasFocus: false,
 		    },
 			mainBody: {
-				isActiveSubStarred=false,
+				isActiveSubStarred: false,
 				getDarkMode: false
 			}
     }
@@ -49,6 +49,7 @@ const initialState = {
 
 export const redacktReducer = (state=initialState, action) => {
     if (action.type === actions.UPDATE_ACTIVE_SUB_NAME) {
+		console.log('Dispatching update Active Sub in Reducer !!!');
         return Object.assign({}, state, {
 			activeSub: action.subreddit,
             activeSubURL: generateRedditUrl(action.subreddit, state.sortType)

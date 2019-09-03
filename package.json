@@ -12,8 +12,9 @@
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-lazyload": "^2.5.0",
-    "react-redux": "^7.1.0",
-    "react-scripts": "^2.1.8"
+    "react-redux": "^7.1.1",
+    "react-scripts": "^2.1.8",
+    "redux": "^4.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,5 +30,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "redux-devtools": "^3.5.0"
+  }
 }
