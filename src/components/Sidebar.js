@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import bell from '../images/bell.svg';
 import search from '../images/search-icon.svg';
 import add from '../images/add-icon.svg';
 import remove from '../images/remove-icon.svg';
 import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
-import { updateActiveSubName } from '../store/actions'
+import * as actions from '../store/actions'
 
-export default class Sidebar extends Component {
+export class Sidebar extends Component {
 	state = {
 		subreddits: [
 			{
@@ -150,7 +151,7 @@ export default class Sidebar extends Component {
 	// }
 
 	updateActiveSubName = (subreddit) => {
-         this.props.dispatch(updateActiveSubName(subreddit));
+         this.props.dispatch(actions.updateActiveSubName(subreddit));
     };
 
 	componentWillMount() {
@@ -249,4 +250,6 @@ export default class Sidebar extends Component {
 		);
 	}
 }
+
+export default connect()(Sidebar);
 
