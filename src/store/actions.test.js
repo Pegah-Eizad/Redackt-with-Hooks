@@ -3,11 +3,11 @@ import * as actions from './actions';
 
 fdescribe('actions', () => {
   it('should create an action to update active sub name', () => {
-    const subName = 'food'
+    const subreddit = 'food'
     const expectedAction = {
       type: actions.UPDATE_ACTIVE_SUB_NAME,
-      subName
+      subreddit
     }
-    expect(actions.updateActiveSubName(subName)).toEqual(expectedAction);
+    expect(actions.updateActiveSubName(subreddit)).toEqual(expectedAction);
   })
 })
