@@ -56,21 +56,6 @@ export const redacktReducer = (state=initialState, action) => {
 			activeSubURL: generateRedditUrl(action.subreddit, state.sortType)
         });
     }
-    // else if (action.type === actions.ADD_CARD) {
-    //     let lists = state.lists.map((list, index) => {
-    //         if (index !== action.listIndex) {
-    //             return list;
-    //         }
-    //         return Object.assign({}, list, {
-    //             cards: [...list.cards, {
-    //                 text: action.text
-    //             }]
-    //         });
-    //     });
-    //     return Object.assign({}, state, {
-    //         lists
-    //     });
-    // }
     else {
         return state;
     }
