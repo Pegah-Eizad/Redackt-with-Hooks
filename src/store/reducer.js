@@ -67,7 +67,6 @@ export const redacktReducer = (state=initialState, action) => {
     //             }]
     //         });
     //     });
-
     //     return Object.assign({}, state, {
     //         lists
     //     });
