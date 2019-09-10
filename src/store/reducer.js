@@ -37,6 +37,7 @@ const initialState = {
 				id: 5
 				}
 			],
+			sortType: "top",
 			subredditInput: "",
 			subredditInputHasFocus: false,
 		    },
