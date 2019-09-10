@@ -3,7 +3,11 @@ import generateRedditUrl from '../helpers/generateRedditUrl';
 import RedditPost from '../components/RedditPost.js';
 
 const initialState = {
-    state: {
+			sortType: "top",
+			subredditInput: "",
+			subredditInputHasFocus: false,
+			activeSub: "AskReddit",
+			activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
 			sidebar: {
 				subreddits: [
 				{
@@ -36,16 +40,12 @@ const initialState = {
 				isStarred: false,
 				id: 5
 				}
-			],
-			sortType: "top",
-			subredditInput: "",
-			subredditInputHasFocus: false,
+			  ]
 		    },
 			mainBody: {
 				isActiveSubStarred: false,
 				getDarkMode: false
 			}
-    }
 };
 
 export const redacktReducer = (state=initialState, action) => {
@@ -53,7 +53,7 @@ export const redacktReducer = (state=initialState, action) => {
 		console.log('Dispatching update Active Sub in Reducer !!!');
         return Object.assign({}, state, {
 			activeSub: action.subreddit,
-            activeSubURL: generateRedditUrl(action.subreddit, state.sortType)
+			activeSubURL: generateRedditUrl(action.subreddit, state.sortType)
         });
     }
     // else if (action.type === actions.ADD_CARD) {
