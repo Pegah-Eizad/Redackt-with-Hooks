@@ -57,10 +57,7 @@ describe('todos reducer', () => {
 
   it('should handle UPDATE_ACTIVE_SUB_NAME', () => {
     expect(
-      reducer([], {
-        type: actions.UPDATE_ACTIVE_SUB_NAME,
-        text: 'food'
-      })
+      reducer(initialState, actions.updateActiveSubName('food'))
     ).toEqual({...initialState, activeSub: 'food', activeSubURL: generateRedditUrl('food', 'top')})
    });
 });
