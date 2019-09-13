@@ -101,16 +101,6 @@ export class Sidebar extends Component {
 		}
 	}
 
-	// updateActiveSub = (name) => {
-		// this.props.dispatch(getPosts(subreddit));
-		// this.setState(prevState => {
-		//   return {
-		// 	activeSub: name,
-		// 	activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
-		//   }
-		// });
-	// }
-
 	updateActiveSubName = (subreddit) => {
          this.props.dispatch(actions.updateActiveSubName(subreddit));
     };
