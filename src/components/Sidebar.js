@@ -110,6 +110,7 @@ export class Sidebar extends Component {
 	}
 
 	render() {
+		console.log(':::', this.props);
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
@@ -137,7 +138,7 @@ export class Sidebar extends Component {
 						<label>
 							<img src={search} alt="search-icon"/>
 							<input type="text" placeholder="Add Sub..."
-								   defaultValue={this.state.subredditInput}
+								   defaultValue=""
 								   className="addSubInput"
 								   onChange={this.handleChange}
 								   onKeyPress={this.handleKeyPress}
@@ -153,7 +154,7 @@ export class Sidebar extends Component {
 					<span>Starred</span>
 				</div>
 				<ul>
-				    {this.state.subreddits.map((subReddit) =>
+					{this.props.sidebarState.subreddits.map((subReddit) =>
 					  this.displayStarredSubs(subReddit)
 					)}
 				</ul>
@@ -163,11 +164,11 @@ export class Sidebar extends Component {
 				</div>
 				<ul>
 					{/* Subreddit List */}
-					{this.state.subreddits.map( (subReddit, index) => {
+					{this.props.sidebarState.subreddits.map( (subReddit) => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
-								className={(subReddit.name === this.state.activeSub) ? 'active' : ''}
+								className={(subReddit.name === this.props.activeSub) ? 'active' : ''}
 								onClick={() => this.updateActiveSubName(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>

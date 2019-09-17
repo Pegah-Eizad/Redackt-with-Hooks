@@ -10,16 +10,6 @@ library.add(faAngleUp, faAngleDown, faCheck);
 
 class App extends Component {
 
-  // getSortType = (sortType) => {
-  //   this.setState(prevState => {
-  //     return {
-  //       sortType: sortType,
-  //       activeSubURL: this.generateRedditUrl(this.state.activeSub, this.state.sortType)
-  //     };
-  //   });
-  // };
-
-
   getDarkMode = () => {
     this.setState(prevState => {
       return {
@@ -32,7 +22,7 @@ class App extends Component {
   render() {
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar />
+        <Sidebar sidebarState={this.props.sidebar} activeSub={this.props.activeSub}/>
         <MainBody />
       </div>
     );
@@ -47,7 +37,8 @@ App.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  sidebar: state.sidebar
+  sidebar: state.sidebar,
+  activeSub: state.activeSub
 });
 
 export default connect(mapStateToProps)(App);
