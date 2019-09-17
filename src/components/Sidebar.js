@@ -9,45 +9,6 @@ import unread from '../images/unread-icon.svg';
 import * as actions from '../store/actions'
 
 export class Sidebar extends Component {
-	state = {
-		subreddits: [
-			{
-			  name: "AskReddit",
-			  isStarred: false,
-			  id: 0
-			},
-			{
-			  name: "all",
-			  isStarred: false,
-			  id: 1
-			},
-			{
-			  name: "RocketLeague",
-			  isStarred: false,
-			  id: 2
-			},
-			{
-			  name: "pics",
-			  isStarred: false,
-			  id: 3
-			},
-			{
-			  name: "reactjs",
-			  isStarred: false,
-			  id: 4
-			},
-			{
-			  name: "videos",
-			  isStarred: false,
-			  id: 5
-			}
-		  ],
-		subredditInput: "",
-		subredditInputHasFocus: false,
-		activeSub : "AskReddit",
-		sortType: "top",
-		activeSubURL: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1",
-	};
 
 	focusSubredditInput = () => {
 		this.subredditInput && this.subredditInput.focus();
@@ -139,16 +100,6 @@ export class Sidebar extends Component {
 			);
 		}
 	}
-
-	// updateActiveSub = (name) => {
-		// this.props.dispatch(getPosts(subreddit));
-		// this.setState(prevState => {
-		//   return {
-		// 	activeSub: name,
-		// 	activeSubURL: "https://www.reddit.com/r/" + name + "/"+this.state.sortType+".json?limit=10&raw_json=1"
-		//   }
-		// });
-	// }
 
 	updateActiveSubName = (subreddit) => {
          this.props.dispatch(actions.updateActiveSubName(subreddit));
