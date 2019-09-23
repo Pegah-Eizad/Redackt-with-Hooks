@@ -22,8 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar sidebarState={this.props.sidebar} activeSub={this.props.activeSub}/>
-        <MainBody />
+        <Sidebar sidebarState={this.props.sidebar} activeSub={this.props.activeSub} />
+        <MainBody mainbody={this.props.mainbody} activeSub={this.props.activeSub} />
       </div>
     );
   }
@@ -38,6 +38,7 @@ App.defaultProps = {
 
 const mapStateToProps = state => ({
   sidebar: state.sidebar,
+  mainbody: state.mainBody,
   activeSub: state.activeSub
 });
 

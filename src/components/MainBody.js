@@ -50,27 +50,28 @@ export default class MainBody extends Component {
     };
 
   render() {
+    console.log('Mainbody :::', this.props);
     return (
       <div className={!this.state.isToggleOn ? 'main thread-is-closed' : 'main thread-is-open'}>
         <Header
             activeSub={this.props.activeSub}
             activeSubURL={this.props.activeSubURL}
-            isActiveSubStarred={this.props.getIsActiveSubStarred}
-            subCount={this.state.subCount}
-            getSortType={this.props.getSortType}
-            sortType={this.props.sortType}
-            getDarkMode={this.props.getDarkMode}
-            openSideBar={this.props.openSideBar}
-            toggleStar={this.props.toggleStar}
+            // isActiveSubStarred={this.props.getIsActiveSubStarred}
+            // subCount={this.state.subCount}
+            // getSortType={this.props.getSortType}
+            // sortType={this.props.sortType}
+            // getDarkMode={this.props.getDarkMode}
+            // openSideBar={this.props.openSideBar}
+            // toggleStar={this.props.toggleStar}
         />
         <RedditPost
             activeSub={this.props.activeSub}
             activeSubURL={this.props.activeSubURL}
-            getSubCount={this.getSubCount}
-            isThreadOpen={this.isThreadOpen}
-            isThreadClose={this.isThreadClose}
-            morePosts={this.state.getMorePosts}
-            sortType={this.props.sortType}
+            // getSubCount={this.getSubCount}
+            // isThreadOpen={this.isThreadOpen}
+            // isThreadClose={this.isThreadClose}
+            // morePosts={this.state.getMorePosts}
+            // sortType={this.props.sortType}
         />
 
         <div className="message-bar">
