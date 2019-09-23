@@ -110,7 +110,7 @@ export class Sidebar extends Component {
 	}
 
 	render() {
-		console.log(':::', this.props);
+		console.log('sidebar:::', this.props);
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
