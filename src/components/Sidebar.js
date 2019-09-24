@@ -8,7 +8,10 @@ import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
 import * as actions from '../store/actions'
 
-export class Sidebar extends Component {
+const Sidebar = props => {
+
+	const initialFormState = { id: null, name: '', username: '' }
+	const [ user, setUser ] = useState(initialFormState)
 
 	focusSubredditInput = () => {
 		this.subredditInput && this.subredditInput.focus();
@@ -105,11 +108,6 @@ export class Sidebar extends Component {
          this.props.dispatch(actions.updateActiveSubName(subreddit));
     };
 
-	componentWillMount() {
-		// let subs = this.state.subreddits;
-	}
-
-	render() {
 		console.log('sidebar:::', this.props);
 		return (
 			<React.Fragment>
@@ -200,7 +198,6 @@ export class Sidebar extends Component {
 			</div>
 			</React.Fragment>
 		);
-	}
 }
 
 export default connect()(Sidebar);

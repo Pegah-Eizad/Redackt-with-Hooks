@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div className={'App theme-wrapper theme-dark'}>
         <Sidebar sidebarState={this.props.sidebar} activeSub={this.props.activeSub} />
-        <MainBody mainbody={this.props.mainbody} activeSub={this.props.activeSub} />
+        <MainBody mainbody={this.props.mainbody} activeSub={this.props.activeSub} activeSubURL={this.props.activeSubURL} />
       </div>
     );
   }
