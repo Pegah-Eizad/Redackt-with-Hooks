@@ -10,8 +10,9 @@ import * as actions from '../store/actions'
 
 const Sidebar = props => {
 
-	const initialFormState = { id: null, name: '', username: '' }
-	const [ user, setUser ] = useState(initialFormState)
+	// const initialFormState = { id: null, name: '', username: '' }
+	const [ subreddits, setSubreddits ] = useState(initialFormState);
+    
 
 	focusSubredditInput = () => {
 		this.subredditInput && this.subredditInput.focus();
@@ -104,9 +105,6 @@ const Sidebar = props => {
 		}
 	}
 
-	updateActiveSubName = (subreddit) => {
-         this.props.dispatch(actions.updateActiveSubName(subreddit));
-    };
 
 		console.log('sidebar:::', this.props);
 		return (
@@ -152,7 +150,7 @@ const Sidebar = props => {
 					<span>Starred</span>
 				</div>
 				<ul>
-					{this.props.sidebarState.subreddits.map((subReddit) =>
+					{subreddits.map((subReddit) =>
 					  this.displayStarredSubs(subReddit)
 					)}
 				</ul>
@@ -162,12 +160,12 @@ const Sidebar = props => {
 				</div>
 				<ul>
 					{/* Subreddit List */}
-					{this.props.sidebarState.subreddits.map( (subReddit) => {
+					{subreddits.map( (subReddit) => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
 								className={(subReddit.name === this.props.activeSub) ? 'active' : ''}
-								onClick={() => this.updateActiveSubName(subReddit.name)}
+								onClick={() => setSubreddits(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
