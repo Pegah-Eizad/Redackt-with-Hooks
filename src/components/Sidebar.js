@@ -8,10 +8,9 @@ import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
 import * as actions from '../store/actions'
 
-const Sidebar = props => {
+const Sidebar = () => {
 
-	const initialFormState = { 
-		subreddits: [
+	const initialSubreddits = [
 			{
 			name: "AskReddit",
 			isStarred: false,
@@ -42,14 +41,13 @@ const Sidebar = props => {
 			isStarred: false,
 			id: 5
 			}
-		  ]
-	}
-	const [ subreddits, setSubreddits ] = useState(initialFormState);
+		];
+	const [ subreddits, setSubreddits ] = useState(initialSubreddits);
     
 
-	focusSubredditInput = () => {
-		this.subredditInput && this.subredditInput.focus();
-	};
+	// focusSubredditInput = () => {
+	// 	this.subredditInput && this.subredditInput.focus();
+	// };
 
 	handleChange = (e) => {
 		this.setState({
@@ -139,7 +137,7 @@ const Sidebar = props => {
 	}
 
 
-		console.log('sidebar:::', this.props);
+		console.log('sidebar:::', );
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
@@ -197,7 +195,7 @@ const Sidebar = props => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
-								className={(subReddit.name === this.props.activeSub) ? 'active' : ''}
+								className={(subReddit.name === initialFormState.activeSub) ? 'active' : ''}
 								onClick={() => setSubreddits(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
