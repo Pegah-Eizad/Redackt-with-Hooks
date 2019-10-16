@@ -12,38 +12,42 @@ const App = () => {
 
   const initialSubreddits = [
     {
-    name: "AskReddit",
+    name: 'AskReddit',
     isStarred: false,
     id: 0
     },
     {
-    name: "all",
+    name: 'all',
     isStarred: false,
     id: 1
     },
     {
-    name: "RocketLeague",
+    name: 'RocketLeague',
     isStarred: false,
     id: 2
     },
     {
-    name: "pics",
+    name: 'pics',
     isStarred: false,
     id: 3
     },
     {
-    name: "reactjs",
+    name: 'reactjs',
     isStarred: false,
     id: 4
     },
     {
-    name: "videos",
+    name: 'videos',
     isStarred: false,
     id: 5
     }
   ];
+  const activeSub = 'AskReddit';
+  const activeSubUrl = 'https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1';
 
   const [ subreddits, setSubreddits ] = useState(initialSubreddits);
+  const [ activeSub, setActiveSub ] = useState(activeSub);
+  const [ activeSubUrl, setActiveSubUrl ] = useState(activeSubUrl);
 
   addSub = (sub) => {
 		setSubreddits([...subreddits, sub]);
@@ -61,7 +65,7 @@ const App = () => {
 
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar subreddits={subreddits} />
+        <Sidebar subreddits={subreddits} activeSub={activeSub} setActiveSubUrl={activeSubUrl}/>
         <MainBody />
       </div>
     );

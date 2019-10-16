@@ -8,12 +8,10 @@ import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
 import * as actions from '../store/actions'
 
-const Sidebar = () => {
+const Sidebar = props => {
 
-	
-	
-    
-
+	const [ subreddits, setSubreddits ] = useState(props.subreddits);
+    const [ activeSub, setActiveSub ] = useState(props.activeSub);
 	// focusSubredditInput = () => {
 	// 	this.subredditInput && this.subredditInput.focus();
 	// };
