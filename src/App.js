@@ -47,15 +47,6 @@ const App = () => {
 
   addSub = (sub) => {
 		setSubreddits([...subreddits, sub]);
-		// let oldSubs = this.state.subreddits;
-		// let newSubs = [...oldSubs, {"name": name, "id": oldSubs.length}];
-		// this.setState(prevState => {
-		//   return {
-		// 	subReddits: newSubs,
-		// 	activeSub: name,
-		// 	activeSubURL: "https://www.reddit.com/r/" + name + "/"+ this.state.sortType+".json?limit=10&raw_json=1"
-		//   }
-		// });
 	};
 
   getDarkMode = () => {
@@ -71,7 +62,7 @@ const App = () => {
     return (
       <div className={'App theme-wrapper theme-dark'}>
         <Sidebar subreddits={subreddits} />
-        <MainBody mainbody={this.props.mainbody} activeSub={this.props.activeSub} activeSubURL={this.props.activeSubURL} />
+        <MainBody />
       </div>
     );
   }

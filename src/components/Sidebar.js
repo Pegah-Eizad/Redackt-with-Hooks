@@ -47,53 +47,53 @@ const Sidebar = () => {
 
 	
 	
-	removeSub = (subID) => {
-		let oldSubs = this.state.subreddits;
-		let updatedPosts = [...oldSubs];
-		updatedPosts.splice(subID, 1);
-		this.setState(prevState => {
-		  return {
-			subReddits: updatedPosts
-		  }
-		});
-	};
+	// removeSub = (subID) => {
+	// 	let oldSubs = this.state.subreddits;
+	// 	let updatedPosts = [...oldSubs];
+	// 	updatedPosts.splice(subID, 1);
+	// 	this.setState(prevState => {
+	// 	  return {
+	// 		subReddits: updatedPosts
+	// 	  }
+	// 	});
+	// };
 
-	toggleStar = () => {
-		let oldSubs = this.state.subreddits;
-		if (oldSubs[0] === null) {
-		  return 
-		} else {
-		  let newSubs = oldSubs.map(sub => {
-			return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
-		  });
-		  this.setState(prevState => {
-			return {
-			  subReddits: newSubs,
-			}
-		  });
-		}      
-	}
+	// toggleStar = () => {
+	// 	let oldSubs = this.state.subreddits;
+	// 	if (oldSubs[0] === null) {
+	// 	  return 
+	// 	} else {
+	// 	  let newSubs = oldSubs.map(sub => {
+	// 		return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
+	// 	  });
+	// 	  this.setState(prevState => {
+	// 		return {
+	// 		  subReddits: newSubs,
+	// 		}
+	// 	  });
+	// 	}      
+	// }
 	
-	activeSubStarredStatus = () => {
-		const oldSubs = this.state.subreddits;
-		const activeSub = this.state.activeSub;
-		let activeSubState = oldSubs.find(sub =>  {
-		  return sub.name === activeSub
-		 } );
-		return activeSubState ? activeSubState.isStarred : false;
-	  }
+	// activeSubStarredStatus = () => {
+	// 	const oldSubs = this.state.subreddits;
+	// 	const activeSub = this.state.activeSub;
+	// 	let activeSubState = oldSubs.find(sub =>  {
+	// 	  return sub.name === activeSub
+	// 	 } );
+	// 	return activeSubState ? activeSubState.isStarred : false;
+	//   }
 
-	displayStarredSubs = (sub) => {
-		if (sub.isStarred) {
-			return (
-				<li className={sub.name === this.state.activeSub ? 'active' : ''}
-				//    dispatch change active sub action 
-				    onClick> 
-				  <span># {sub.name}</span>
-				</li>
-			);
-		}
-	}
+	// displayStarredSubs = (sub) => {
+	// 	if (sub.isStarred) {
+	// 		return (
+	// 			<li className={sub.name === this.state.activeSub ? 'active' : ''}
+	// 			//    dispatch change active sub action 
+	// 			    onClick> 
+	// 			  <span># {sub.name}</span>
+	// 			</li>
+	// 		);
+	// 	}
+	// }
 
 
 		console.log('sidebar:::', );
