@@ -8,11 +8,13 @@ import message from '../images/message-icon-2.svg';
 import unread from '../images/unread-icon.svg';
 import * as actions from '../store/actions'
 
-export class Sidebar extends Component {
+const Sidebar = props => {
 
-	focusSubredditInput = () => {
-		this.subredditInput && this.subredditInput.focus();
-	};
+	const [ subreddits, setSubreddits ] = useState(props.subreddits);
+    const [ activeSub, setActiveSub ] = useState(props.activeSub);
+	// focusSubredditInput = () => {
+	// 	this.subredditInput && this.subredditInput.focus();
+	// };
 
 	handleChange = (e) => {
 		this.setState({
@@ -41,76 +43,58 @@ export class Sidebar extends Component {
 		});
 	}
 
-	addSub = (name) => {
-		let oldSubs = this.state.subreddits;
-		let newSubs = [...oldSubs, {"name": name, "id": oldSubs.length}];
-		this.setState(prevState => {
-		  return {
-			subReddits: newSubs,
-			activeSub: name,
-			activeSubURL: "https://www.reddit.com/r/" + name + "/"+ this.state.sortType+".json?limit=10&raw_json=1"
-		  }
-		});
-	};
 	
-	removeSub = (subID) => {
-		let oldSubs = this.state.subreddits;
-		let updatedPosts = [...oldSubs];
-		updatedPosts.splice(subID, 1);
-		this.setState(prevState => {
-		  return {
-			subReddits: updatedPosts
-		  }
-		});
-	};
-
-	toggleStar = () => {
-		let oldSubs = this.state.subreddits;
-		if (oldSubs[0] === null) {
-		  return 
-		} else {
-		  let newSubs = oldSubs.map(sub => {
-			return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
-		  });
-		  this.setState(prevState => {
-			return {
-			  subReddits: newSubs,
-			}
-		  });
-		}      
-	}
 	
-	activeSubStarredStatus = () => {
-		const oldSubs = this.state.subreddits;
-		const activeSub = this.state.activeSub;
-		let activeSubState = oldSubs.find(sub =>  {
-		  return sub.name === activeSub
-		 } );
-		return activeSubState ? activeSubState.isStarred : false;
-	  }
+	// removeSub = (subID) => {
+	// 	let oldSubs = this.state.subreddits;
+	// 	let updatedPosts = [...oldSubs];
+	// 	updatedPosts.splice(subID, 1);
+	// 	this.setState(prevState => {
+	// 	  return {
+	// 		subReddits: updatedPosts
+	// 	  }
+	// 	});
+	// };
 
-	displayStarredSubs = (sub) => {
-		if (sub.isStarred) {
-			return (
-				<li className={sub.name === this.state.activeSub ? 'active' : ''}
-				//    dispatch change active sub action 
-				    onClick> 
-				  <span># {sub.name}</span>
-				</li>
-			);
-		}
-	}
+	// toggleStar = () => {
+	// 	let oldSubs = this.state.subreddits;
+	// 	if (oldSubs[0] === null) {
+	// 	  return 
+	// 	} else {
+	// 	  let newSubs = oldSubs.map(sub => {
+	// 		return sub.name === this.state.activeSub ? {...sub, isStarred: !sub.isStarred} : {...sub};
+	// 	  });
+	// 	  this.setState(prevState => {
+	// 		return {
+	// 		  subReddits: newSubs,
+	// 		}
+	// 	  });
+	// 	}      
+	// }
+	
+	// activeSubStarredStatus = () => {
+	// 	const oldSubs = this.state.subreddits;
+	// 	const activeSub = this.state.activeSub;
+	// 	let activeSubState = oldSubs.find(sub =>  {
+	// 	  return sub.name === activeSub
+	// 	 } );
+	// 	return activeSubState ? activeSubState.isStarred : false;
+	//   }
 
-	updateActiveSubName = (subreddit) => {
-         this.props.dispatch(actions.updateActiveSubName(subreddit));
-    };
+	// displayStarredSubs = (sub) => {
+	// 	if (sub.isStarred) {
+	// 		return (
+	// 			<li className={sub.name === this.state.activeSub ? 'active' : ''}
+	// 			//    dispatch change active sub action 
+	// 			    onClick> 
+	// 			  <span># {sub.name}</span>
+	// 			</li>
+	// 		);
+	// 	}
+	// }
 
-	componentWillMount() {
-		// let subs = this.state.subreddits;
-	}
 
-	render() {
-		console.log('sidebar:::', this.props);
+		console.log('sidebar:::', );
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
@@ -154,7 +138,7 @@ export class Sidebar extends Component {
 					<span>Starred</span>
 				</div>
 				<ul>
-					{this.props.sidebarState.subreddits.map((subReddit) =>
+					{subreddits.map((subReddit) =>
 					  this.displayStarredSubs(subReddit)
 					)}
 				</ul>
@@ -164,12 +148,12 @@ export class Sidebar extends Component {
 				</div>
 				<ul>
 					{/* Subreddit List */}
-					{this.props.sidebarState.subreddits.map( (subReddit) => {
+					{subreddits.map( (subReddit) => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
-								className={(subReddit.name === this.props.activeSub) ? 'active' : ''}
-								onClick={() => this.updateActiveSubName(subReddit.name)}
+								className={(subReddit.name === initialFormState.activeSub) ? 'active' : ''}
+								onClick={() => setSubreddits(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
@@ -200,7 +184,6 @@ export class Sidebar extends Component {
 			</div>
 			</React.Fragment>
 		);
-	}
 }
 
 export default connect()(Sidebar);

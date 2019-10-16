@@ -32,7 +32,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "jest": "^24.9.0",
+    "babel-jest": "^23.6.0",
+    "eslint-plugin-react-hooks": "^2.0.1",
+    "jest": "^23.6.0",
     "redux-devtools": "^3.5.0"
   }
 }
