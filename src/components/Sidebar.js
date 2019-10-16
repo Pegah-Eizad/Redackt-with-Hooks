@@ -10,39 +10,8 @@ import * as actions from '../store/actions'
 
 const Sidebar = () => {
 
-	const initialSubreddits = [
-			{
-			name: "AskReddit",
-			isStarred: false,
-			id: 0
-			},
-			{
-			name: "all",
-			isStarred: false,
-			id: 1
-			},
-			{
-			name: "RocketLeague",
-			isStarred: false,
-			id: 2
-			},
-			{
-			name: "pics",
-			isStarred: false,
-			id: 3
-			},
-			{
-			name: "reactjs",
-			isStarred: false,
-			id: 4
-			},
-			{
-			name: "videos",
-			isStarred: false,
-			id: 5
-			}
-		];
-	const [ subreddits, setSubreddits ] = useState(initialSubreddits);
+	
+	
     
 
 	// focusSubredditInput = () => {
@@ -76,17 +45,7 @@ const Sidebar = () => {
 		});
 	}
 
-	addSub = (name) => {
-		let oldSubs = this.state.subreddits;
-		let newSubs = [...oldSubs, {"name": name, "id": oldSubs.length}];
-		this.setState(prevState => {
-		  return {
-			subReddits: newSubs,
-			activeSub: name,
-			activeSubURL: "https://www.reddit.com/r/" + name + "/"+ this.state.sortType+".json?limit=10&raw_json=1"
-		  }
-		});
-	};
+	
 	
 	removeSub = (subID) => {
 		let oldSubs = this.state.subreddits;
