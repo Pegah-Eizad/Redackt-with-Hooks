@@ -45,27 +45,32 @@ const App = () => {
   const activeSub = 'AskReddit';
   const activeSubUrl = 'https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1';
 
-  const [ subreddits, setSubreddits ] = useState(initialSubreddits);
+  const [ subreddits, setSubreddits ] = useState(initialSubreddits); //addsub
   const [ activeSub, setActiveSub ] = useState(activeSub);
   const [ activeSubUrl, setActiveSubUrl ] = useState(activeSubUrl);
+
+
+  setActiveSub = (sub) => {
+    
+  }
 
   addSub = (sub) => {
 		setSubreddits([...subreddits, sub]);
 	};
 
-  getDarkMode = () => {
-    this.setState(prevState => {
-      return {
-        darkMode: !prevState.darkMode
-      }
-    });
-    this.setCookie('darkMode', this.state.darkMode);
-  };
+  // getDarkMode = () => {
+  //   this.setState(prevState => {
+  //     return {
+  //       darkMode: !prevState.darkMode
+  //     }
+  //   });
+  //   this.setCookie('darkMode', this.state.darkMode);
+  // };
 
 
     return (
       <div className={'App theme-wrapper theme-dark'}>
-        <Sidebar subreddits={subreddits} activeSub={activeSub} setActiveSubUrl={activeSubUrl}/>
+        <Sidebar subreddits={subreddits} activeSub={activeSub} activeSubURL={activeSubUrl} changeSub={setActiveSub} addSub={addSub}/>
         <MainBody />
       </div>
     );
