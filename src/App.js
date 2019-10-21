@@ -58,14 +58,14 @@ const App = () => {
 		setSubreddits([...subreddits, sub]);
 	};
 
-  // getDarkMode = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       darkMode: !prevState.darkMode
-  //     }
-  //   });
-  //   this.setCookie('darkMode', this.state.darkMode);
-  // };
+  getDarkMode = () => {
+    this.setState(prevState => {
+      return {
+        darkMode: !prevState.darkMode
+      }
+    });
+    this.setCookie('darkMode', this.state.darkMode);
+  };
 
 
     return (
