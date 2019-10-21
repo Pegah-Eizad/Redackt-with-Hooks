@@ -58,7 +58,7 @@ const App = () => {
 		setSubreddits([...subreddits, sub]);
 	};
 
-
+  //testing changes
     return (
       <div className={'App theme-wrapper theme-dark'}>
         <Sidebar subreddits={subreddits} activeSub={activeSub} activeSubURL={activeSubUrl} changeSub={setActiveSub} addSub={addSub}/>
