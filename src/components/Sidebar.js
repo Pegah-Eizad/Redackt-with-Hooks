@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import bell from '../images/bell.svg';
 import search from '../images/search-icon.svg';
@@ -16,13 +16,13 @@ const Sidebar = props => {
 	// 	this.subredditInput && this.subredditInput.focus();
 	// };
 
-	handleChange = (e) => {
+	const handleChange = (e) => {
 		this.setState({
 			subredditInput: (e.target.value || "").toLowerCase()
 		});
 	};
 
-	handleKeyPress = (e) => {
+	const handleKeyPress = (e) => {
 		const { subredditInput } = this.state;
 		if (e.which === 13) {
 			//dispatch add sub action
@@ -30,13 +30,13 @@ const Sidebar = props => {
 		e.defaultValue = "";
 	};
 
-	handleFocus = (e) => {
+	const handleFocus = (e) => {
 		this.setState({
 			subredditInputHasFocus: true
 		});
 	};
 
-	handleBlur = (e) => {
+	const handleBlur = (e) => {
 		this.setState({
 			subredditInput: "",
 			subredditInputHasFocus: false
@@ -144,7 +144,7 @@ const Sidebar = props => {
 				</ul>
 				<div className="sidebar-channels" onClick={this.focusSubredditInput}>
 					<span>Channels</span>
-					<img src={add} alt="add-icon"/>
+					<img src={add} alt="add-icon" onClick={props.addSub}/>
 				</div>
 				<ul>
 					{/* Subreddit List */}
@@ -152,7 +152,7 @@ const Sidebar = props => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
-								className={(subReddit.name === initialFormState.activeSub) ? 'active' : ''}
+								className={(subReddit.name === props.activeSub) ? 'active' : ''}
 								onClick={() => setSubreddits(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>

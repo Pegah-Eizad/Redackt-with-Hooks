@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import './styles/main.scss';
 import Sidebar from './components/Sidebar.js';
@@ -42,19 +42,20 @@ const App = () => {
     id: 5
     }
   ];
-  const activeSub = 'AskReddit';
-  const activeSubUrl = 'https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1';
+  const initialActiveSub = 'AskReddit';
+  const initialActiveSubUrl = 'https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1';
 
   const [ subreddits, setSubreddits ] = useState(initialSubreddits); //addsub
-  const [ activeSub, setActiveSub ] = useState(activeSub);
-  const [ activeSubUrl, setActiveSubUrl ] = useState(activeSubUrl);
+  const [ activeSub, setActiveSub ] = useState(initialActiveSub);
+  const [ activeSubUrl, setActiveSubUrl ] = useState(initialActiveSubUrl);
 
 
   setActiveSub = (sub) => {
     
   }
 
-  addSub = (sub) => {
+  const addSub = (sub) => {
+    console.log('Inside addSub !!!!!');
 		setSubreddits([...subreddits, sub]);
 	};
 
