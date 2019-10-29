@@ -124,25 +124,22 @@ const Sidebar = props => {
 							<input type="text" placeholder="Add Sub..."
 								   defaultValue=""
 								   className="addSubInput"
-								   onChange={this.handleChange}
-								   onKeyPress={this.handleKeyPress}
-								   onFocus={this.handleFocus}
-								   onBlur={this.handleBlur}
-								   ref={el => (this.subredditInput = el)}
+								   onChange={handleChange}
+								   onKeyPress={handleKeyPress}
+								   onFocus={handleFocus}
+								   onBlur={handleBlur}
+								//    ref={el => (subredditInput = el)}
 							/>
 						</label>
 					</div>
 				</div>
                 
-				<div className="sidebar-channels" onClick={this.focusSubredditInput}>
+				<div className="sidebar-channels">
 					<span>Starred</span>
 				</div>
 				<ul>
-					{subreddits.map((subReddit) =>
-					  this.displayStarredSubs(subReddit)
-					)}
 				</ul>
-				<div className="sidebar-channels" onClick={this.focusSubredditInput}>
+				<div className="sidebar-channels" >
 					<span>Channels</span>
 					<img src={add} alt="add-icon" onClick={props.addSub}/>
 				</div>

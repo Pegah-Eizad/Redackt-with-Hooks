@@ -50,9 +50,9 @@ const App = () => {
   const [ activeSubUrl, setActiveSubUrl ] = useState(initialActiveSubUrl);
 
 
-  setActiveSub = (sub) => {
+  // setActiveSub = (sub) => {
     
-  }
+  // }
 
   const addSub = (sub) => {
     console.log('Inside addSub !!!!!');
