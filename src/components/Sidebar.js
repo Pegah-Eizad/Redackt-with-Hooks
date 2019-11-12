@@ -94,7 +94,7 @@ const Sidebar = props => {
 	// }
 
 
-		console.log('sidebar:::', );
+		console.log('sidebar:::', props.subreddits);
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
@@ -141,7 +141,7 @@ const Sidebar = props => {
 				</ul>
 				<div className="sidebar-channels" >
 					<span>Channels</span>
-					<img src={add} alt="add-icon" onClick={props.addSub}/>
+					<img src={add} alt="add-icon" onClick={() => props.addSub('test')}/>
 				</div>
 				<ul>
 					{/* Subreddit List */}
