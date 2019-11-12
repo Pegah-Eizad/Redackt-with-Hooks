@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import bell from '../images/bell.svg';
 import search from '../images/search-icon.svg';
@@ -11,10 +11,13 @@ import * as actions from '../store/actions'
 const Sidebar = props => {
 
 	const [ subreddits, setSubreddits ] = useState(props.subreddits);
-    const [ activeSub, setActiveSub ] = useState(props.activeSub);
+	const [ activeSub, setActiveSub ] = useState(props.activeSub);
+	const textInput = useRef();
 	// focusSubredditInput = () => {
 	// 	this.subredditInput && this.subredditInput.focus();
 	// };
+
+	const focusTextInput = () => textInput.current.focus();
 
 	const handleChange = (e) => {
 		this.setState({
@@ -30,17 +33,22 @@ const Sidebar = props => {
 		e.defaultValue = "";
 	};
 
-	const handleFocus = (e) => {
-		this.setState({
-			subredditInputHasFocus: true
-		});
-	};
+	// const handleFocus = (e) => {
+	// 	this.setState({
+	// 		subredditInputHasFocus: true
+	// 	});
+	// };
 
 	const handleBlur = (e) => {
 		this.setState({
 			subredditInput: "",
 			subredditInputHasFocus: false
 		});
+	}
+
+	const handleAddChannel = () => {
+		props.addSub('test');
+        focusTextInput();
 	}
 
 	
@@ -121,15 +129,7 @@ const Sidebar = props => {
 					<div className="jump-to">
 						<label>
 							<img src={search} alt="search-icon"/>
-							<input type="text" placeholder="Add Sub..."
-								   defaultValue=""
-								   className="addSubInput"
-								   onChange={handleChange}
-								   onKeyPress={handleKeyPress}
-								   onFocus={handleFocus}
-								   onBlur={handleBlur}
-								//    ref={el => (subredditInput = el)}
-							/>
+							<input type="text" ref={textInput} />
 						</label>
 					</div>
 				</div>
@@ -141,7 +141,7 @@ const Sidebar = props => {
 				</ul>
 				<div className="sidebar-channels" >
 					<span>Channels</span>
-					<img src={add} alt="add-icon" onClick={() => props.addSub('test')}/>
+					<img src={add} alt="add-icon" onClick={handleAddChannel}/>
 				</div>
 				<ul>
 					{/* Subreddit List */}
