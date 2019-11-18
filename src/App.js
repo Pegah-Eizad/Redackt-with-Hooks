@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import './styles/main.scss';
 import Sidebar from './components/Sidebar.js';
@@ -56,8 +56,27 @@ const App = () => {
 
   const addSub = (sub) => {
     console.log('Inside addSub !!!!!');
-		setSubreddits([...subreddits, sub]);
-	};
+		
+  };
+  
+  useEffect(() => {
+    fetch(
+      'https://www.reddit.com/r/AskReddit/top.json?limit=10&raw_json=1',
+      {
+        method: "GET",
+        headers: new Headers({
+          // Accept: "application/vnd.github.cloak-preview"
+        })
+      }
+    )
+      .then(res => res.json())
+      .then(response => {
+        //setCommitHistory(response.items);
+        //setIsLoading(false);
+        console.log('RESPONSE!!:::: ', response)
+      })
+      .catch(error => console.log(error));
+  });
 
   //testing changes
     return (
