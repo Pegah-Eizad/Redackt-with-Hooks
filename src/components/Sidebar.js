@@ -13,31 +13,14 @@ const Sidebar = props => {
 	const [ subreddits, setSubreddits ] = useState(props.subreddits);
 	const [ activeSub, setActiveSub ] = useState(props.activeSub);
 	const textInput = useRef();
-	// focusSubredditInput = () => {
-	// 	this.subredditInput && this.subredditInput.focus();
-	// };
 
 	const focusTextInput = () => textInput.current.focus();
 
-	const handleChange = (e) => {
-		this.setState({
-			subredditInput: (e.target.value || "").toLowerCase()
-		});
-	};
-
 	const handleKeyPress = (e) => {
-		const { subredditInput } = this.state;
-		if (e.which === 13) {
-			//dispatch add sub action
+		if (e.key === 'Enter') {
+			props.addSub(e.target.value)
 		}
-		e.defaultValue = "";
 	};
-
-	// const handleFocus = (e) => {
-	// 	this.setState({
-	// 		subredditInputHasFocus: true
-	// 	});
-	// };
 
 	const handleBlur = (e) => {
 		this.setState({
@@ -46,12 +29,6 @@ const Sidebar = props => {
 		});
 	}
 
-	const handleAddChannel = () => {
-		props.addSub('test');
-        focusTextInput();
-	}
-
-	
 	
 	// removeSub = (subID) => {
 	// 	let oldSubs = this.state.subreddits;
@@ -129,7 +106,7 @@ const Sidebar = props => {
 					<div className="jump-to">
 						<label>
 							<img src={search} alt="search-icon"/>
-							<input type="text" ref={textInput} />
+							<input type="text" ref={textInput} onKeyPress={handleKeyPress}/>
 						</label>
 					</div>
 				</div>
@@ -141,7 +118,7 @@ const Sidebar = props => {
 				</ul>
 				<div className="sidebar-channels" >
 					<span>Channels</span>
-					<img src={add} alt="add-icon" onClick={handleAddChannel}/>
+					<img src={add} alt="add-icon" onClick={focusTextInput}/>
 				</div>
 				<ul>
 					{/* Subreddit List */}
