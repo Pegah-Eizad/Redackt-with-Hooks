@@ -11,7 +11,6 @@ import * as actions from '../store/actions'
 const Sidebar = props => {
 
 	const [ subreddits, setSubreddits ] = useState(props.subreddits);
-	const [ activeSub, setActiveSub ] = useState(props.activeSub);
 	const textInput = useRef();
 
 	const focusTextInput = () => textInput.current.focus();
@@ -79,7 +78,7 @@ const Sidebar = props => {
 	// }
 
 
-		console.log('sidebar:::', props.subreddits);
+		console.log('sidebar:::', subreddits);
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
@@ -121,13 +120,13 @@ const Sidebar = props => {
 					<img src={add} alt="add-icon" onClick={focusTextInput}/>
 				</div>
 				<ul>
-					{/* Subreddit List */}
-					{subreddits.map( (subReddit) => {
+					{subreddits.map((subreddit) => console.log(subreddit))}
+					{ subreddits.map( (subReddit) => {
 					    if (subReddit.isStarred === false) {
 						  return(
 							<li
 								className={(subReddit.name === props.activeSub) ? 'active' : ''}
-								onClick={() => setSubreddits(subReddit.name)}
+								onClick={() => props.changeActiveSub(subReddit.name)}
 								key={subReddit.id.toString()} >
 								<span># {subReddit.name}</span>
 								<span className={"remove-button"}>
@@ -160,5 +159,5 @@ const Sidebar = props => {
 		);
 }
 
-export default connect()(Sidebar);
+export default Sidebar;
 
