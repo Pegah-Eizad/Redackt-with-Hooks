@@ -120,7 +120,6 @@ const Sidebar = props => {
 					<img src={add} alt="add-icon" onClick={focusTextInput}/>
 				</div>
 				<ul>
-					{subreddits.map((subreddit) => console.log(subreddit))}
 					{ subreddits.map( (subReddit) => {
 					    if (subReddit.isStarred === false) {
 						  return(
