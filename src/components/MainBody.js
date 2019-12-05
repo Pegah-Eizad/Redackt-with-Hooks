@@ -50,7 +50,8 @@ export default class MainBody extends Component {
     // };
 
   render() {
-    console.log('Mainbody :::', this.props.activeSubURL);
+    console.log('Mainbody activeSub:::', this.props.activeSub);
+    console.log('Mainbody activeSubURL:::', this.props.activeSubURL);
     return (
     //   <div className={!this.state.isToggleOn ? 'main thread-is-closed' : 'main thread-is-open'}>
     <div className={'main thread-is-open'}>
