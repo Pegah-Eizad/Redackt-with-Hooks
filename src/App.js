@@ -88,7 +88,7 @@ const App = () => {
     return (
       <div className={'App theme-wrapper theme-dark'}>
         <Sidebar subreddits={subreddits} activeSub={activeSub} activeSubURL={activeSubUrl} changeActiveSub={handleChangeActiveSub} addSub={addSub}/>
-        <MainBody />
+        <MainBody activeSub={activeSub} activeSubURL={activeSubUrl} />
       </div>
     );
   }
