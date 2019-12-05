@@ -49,15 +49,17 @@ const App = () => {
     }
   ];
   const initialActiveSub = 'askreddit';
-  const initialActiveSubUrl = `https://www.reddit.com/r/${activeSub}/top.json?limit=10&raw_json=1`;
+  const initialActiveSubUrl = `https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1`;
 
   const [ subreddits, setSubreddits ] = useState(userSubreddits); //addsub
   const [ activeSub, setActiveSub ] = useState(initialActiveSub);
-  const [ activeSubUrl, setActiveSubUrl ] = useState(activeSubUrl);
+  const [ activeSubUrl, setActiveSubUrl ] = useState(initialActiveSubUrl);
 
 
   const handleChangeActiveSub = (subName) => {
-    setActiveSub(subName)
+    setActiveSub(subName);
+    const activeSubUrl = `https://www.reddit.com/r/${activeSub}/top.json?limit=10&raw_json=1`
+    setActiveSubUrl(activeSubUrl);
   }
 
   const addSub = (sub) => {
