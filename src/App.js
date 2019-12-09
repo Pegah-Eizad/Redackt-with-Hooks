@@ -24,7 +24,7 @@ const App = () => {
     isActive: false, 
     },
     {
-    name: 'RocketLeague',
+    name: 'rocketleague',
     isStarred: false,
     id: 2,
     isActive: false, 
@@ -58,7 +58,8 @@ const App = () => {
 
   const handleChangeActiveSub = (subName) => {
     setActiveSub(subName);
-    const activeSubUrl = `https://www.reddit.com/r/${activeSub}/top.json?limit=10&raw_json=1`
+    const activeSubUrl = `https://www.reddit.com/r/${subName}/top.json?limit=10&raw_json=1`
+    console.log(':::::', activeSub)
     setActiveSubUrl(activeSubUrl);
   }
 

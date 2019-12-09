@@ -4,7 +4,7 @@ import RedditPost from "./RedditPost.js";
 import addFileIcon from "../images/add-file-icon.svg";
 import atIcon from "../images/at-icon.svg";
 
-export default class MainBody extends Component {
+const Mainbody = props => {
 
     // state = {
     //   subCount: 100,
@@ -49,15 +49,14 @@ export default class MainBody extends Component {
     //     }));
     // };
 
-  render() {
-    console.log('Mainbody activeSub:::', this.props.activeSub);
-    console.log('Mainbody activeSubURL:::', this.props.activeSubURL);
+    console.log('Mainbody activeSub:::', props.activeSub);
+    console.log('Mainbody activeSubURL:::', props.activeSubURL);
     return (
     //   <div className={!this.state.isToggleOn ? 'main thread-is-closed' : 'main thread-is-open'}>
     <div className={'main thread-is-open'}>
         <Header
-            activeSub={this.props.activeSub}
-            activeSubURL={this.props.activeSubURL}
+            activeSub={props.activeSub}
+            activeSubURL={props.activeSubURL}
             // isActiveSubStarred={this.props.getIsActiveSubStarred}
             // subCount={this.state.subCount}
             // getSortType={this.props.getSortType}
@@ -67,8 +66,8 @@ export default class MainBody extends Component {
             // toggleStar={this.props.toggleStar}
         />
         <RedditPost
-            activeSub={this.props.activeSub}
-            activeSubURL={this.props.activeSubURL}
+            activeSub={props.activeSub}
+            activeSubURL={props.activeSubURL}
             // getSubCount={this.getSubCount}
             // isThreadOpen={this.isThreadOpen}
             // isThreadClose={this.isThreadClose}
@@ -97,7 +96,7 @@ export default class MainBody extends Component {
                                    onBlur={this.handleBlur}
                                    ref={el => (this.searchInput = el)}
                             /> */}
-                            <input type="text" placeholder={"Message #" + this.props.activeSub}
+                            <input type="text" placeholder={"Message #" + props.activeSub}
                                    className="searchInput"
                             />
                             <img src={atIcon} alt="at-icon"/>
@@ -108,7 +107,8 @@ export default class MainBody extends Component {
         </div>
 
       </div>
-    );
-  }
+    ); 
 }
+
+export default Mainbody;
 

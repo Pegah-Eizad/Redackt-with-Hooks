@@ -79,6 +79,8 @@ const Sidebar = props => {
 
 
 		console.log('sidebar:::', subreddits);
+		console.log('Sidebar activeSub:::', props.activeSub);
+		console.log('Sidebar activeSubURL:::', props.activeSubURL);
 		return (
 			<React.Fragment>
 			<div className={'sidebar'}>
