@@ -4,24 +4,24 @@ import Message from "./Message";
 import Thread from "./Thread";
 
 
-export default class RedditPost extends Component {
+const  RedditPost = props => {
     // State.URL requires default value to work right even though it's overridden when clicking the button.
-    constructor(props) {
-        super(props);
-        this.state = {
-            posts: [],
-            isLoading: true,
-            errors: null,
-            isToggleOn: false,
-            moreLink: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1&after=t3_axkl33",
-            url: "https://www.reddit.com/r/AskReddit/comments/aus97z/bartenders_of_reddit_what_is_the_strangest/.json?limit=5&sort=top&raw_json=1",
-            subCount: 100,
-            media: null
-        };
-        // This binding is necessary to make `this` work in the callback
-        this.handleThreadOpen = this.handleThreadOpen.bind(this);
-        this.handleThreadClose = this.handleThreadClose.bind(this);
-    }
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         posts: [],
+    //         isLoading: true,
+    //         errors: null,
+    //         isToggleOn: false,
+    //         moreLink: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1&after=t3_axkl33",
+    //         url: "https://www.reddit.com/r/AskReddit/comments/aus97z/bartenders_of_reddit_what_is_the_strangest/.json?limit=5&sort=top&raw_json=1",
+    //         subCount: 100,
+    //         media: null
+    //     };
+    //     // This binding is necessary to make `this` work in the callback
+    //     this.handleThreadOpen = this.handleThreadOpen.bind(this);
+    //     this.handleThreadClose = this.handleThreadClose.bind(this);
+    // }
 
     handleThreadOpen = (index, media) => {
         this.setState(prevState => ({
@@ -135,28 +135,28 @@ export default class RedditPost extends Component {
         }
     };
 
-    render() {
-        const { isLoading, posts } = this.state;
-        return (
-            <React.Fragment>
-                <div className={!this.state.isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
-                    {!isLoading ? (
-                        posts.map((post, index) => this.getMessage(post, index))
-                    ) : (
-                        <p className="loading">Loading...</p>
-                    )}
-                </div>
-                <div className={!this.state.isToggleOn ? 'threads-closed' : 'threads-open'}>
-                    <Thread
-                        url={this.state.url}
-                        toggle={this.state.isToggleOn}
-                        posts={this.state.posts}
-                        activeSub={this.props.activeSub}
-                        handleThreadClose={this.handleThreadClose}
-                        media={this.state.media}
-                    />
-                </div>
-            </React.Fragment>
-        )
-    }
+    const { isLoading, posts } = this.state;
+    return (
+        <React.Fragment>
+            <div className={!this.state.isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
+                {!isLoading ? (
+                    posts.map((post, index) => this.getMessage(post, index))
+                ) : (
+                    <p className="loading">Loading...</p>
+                )}
+            </div>
+            <div className={!this.state.isToggleOn ? 'threads-closed' : 'threads-open'}>
+                <Thread
+                    url={this.state.url}
+                    toggle={this.state.isToggleOn}
+                    posts={this.state.posts}
+                    activeSub={this.props.activeSub}
+                    handleThreadClose={this.handleThreadClose}
+                    media={this.state.media}
+                />
+            </div>
+        </React.Fragment>
+    )
 }
+
+export default RedditPost;
