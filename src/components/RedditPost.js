@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Message from "./Message";
 import Thread from "./Thread";
@@ -23,7 +23,7 @@ const  RedditPost = props => {
     //     this.handleThreadClose = this.handleThreadClose.bind(this);
     // }
 
-    handleThreadOpen = (index, media) => {
+    const handleThreadOpen = (index, media) => {
         this.setState(prevState => ({
             isToggleOn: true,
             url: "https://www.reddit.com" + this.state.posts[index].data.permalink + ".json?&raw_json=1&sort=" + this.props.sortType,
@@ -33,7 +33,7 @@ const  RedditPost = props => {
         this.props.isThreadOpen();
     };
 
-    handleThreadClose = () => {
+    const handleThreadClose = () => {
         this.setState(prevState => ({
             isToggleOn: !prevState.isToggleOn
         }));
@@ -41,7 +41,7 @@ const  RedditPost = props => {
     };
 
     // Go through response to see if a GIF URL, YouTube Video URL, or image URL need to be sent to the Message component.
-    getMedia = (data, index) => {
+   const getMedia = (data, index) => {
         let media = this.state.media;
         if (data.preview) {
              if (data.url.includes("png") || data.url.includes("jpg")  || data.url.includes("youtube") || data.url.includes("youtu.be")) {
@@ -60,7 +60,7 @@ const  RedditPost = props => {
     };
 
     // Get initial posts.
-    getPosts = (url) => {
+    const getPosts = (url) => {
         axios.get(url)
             .then(response => {
                 this.setState({
@@ -73,7 +73,7 @@ const  RedditPost = props => {
     };
 
     // Get more posts after initial posts.
-    getMorePosts = (url) => {
+    const getMorePosts = (url) => {
         axios.get(url)
             .then(response => {
                 this.setState( prevState => {
@@ -86,64 +86,64 @@ const  RedditPost = props => {
             .catch(error => this.setState({ error, isLoading: false }));
     };
 
-    componentDidMount() {
-        this.getPosts(this.props.activeSubURL);
+    const getDefaultSubPosts = () => {
+        useEffect(() => this.getPosts(this.props.activeSubURL));
     }
 
     // Once the RedditPost props update:
     // 1) If more posts is clicked, getMorePosts based on the activeSubURL.
     // 2) If the activeSub changes, or the sortType changes, call getPosts and reload the block.
-    componentDidUpdate(prevProps) {
-        if (this.props.morePosts !== prevProps.morePosts) {
-            let posts = this.state.posts;
-            let afterID = posts[posts.length-1].data.name;
-            let url = "https://www.reddit.com/r/" + this.props.activeSub.toLowerCase() + "/"+this.props.sortType+".json?limit=10&raw_json=1&after=" + afterID;
-            this.setState(prevState => ({
-                moreLink: url
-            }));
-            this.getMorePosts(url);
-        } else if (this.props.activeSub !== prevProps.activeSub || this.props.sortType !== prevProps.sortType) {
-            let url = "https://www.reddit.com/r/" + this.props.activeSub.toLowerCase() + "/"+this.props.sortType+".json?limit=10&raw_json=1";
-            this.setState(prevState => ({
-                activeSub: this.props.activeSub,
-                sortType: this.props.sortType
-            }));
-            this.getPosts(url);
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.morePosts !== prevProps.morePosts) {
+    //         let posts = this.state.posts;
+    //         let afterID = posts[posts.length-1].data.name;
+    //         let url = "https://www.reddit.com/r/" + this.props.activeSub.toLowerCase() + "/"+this.props.sortType+".json?limit=10&raw_json=1&after=" + afterID;
+    //         this.setState(prevState => ({
+    //             moreLink: url
+    //         }));
+    //         this.getMorePosts(url);
+    //     } else if (this.props.activeSub !== prevProps.activeSub || this.props.sortType !== prevProps.sortType) {
+    //         let url = "https://www.reddit.com/r/" + this.props.activeSub.toLowerCase() + "/"+this.props.sortType+".json?limit=10&raw_json=1";
+    //         this.setState(prevState => ({
+    //             activeSub: this.props.activeSub,
+    //             sortType: this.props.sortType
+    //         }));
+    //         this.getPosts(url);
+    //     }
+    // }
 
     // Get message function to filter out NSFW posts so I don't randomly
     // see weiners when testing sort by new.
-    getMessage = (post, index) => {
-        if (!post.data.over_18) {
-            return <Message
-                key={index.toString()}
-                index={index}
-                title={post.data.title}
-                author={post.data.author}
-                url={post.data.permalink + ".json?limit=12&sort=top&raw_json=1"}
-                permalink={"https://www.reddit.com" + post.data.permalink}
-                upvotes={post.data.score}
-                downvotes={post.data.downs}
-                gildings={post.data.gildings}
-                handleThreadOpen={this.handleThreadOpen}
-                isToggleOn={this.state.isToggleOn}
-                activeMessage={this.state.activeMessage}
-                media={this.getMedia(post.data, index)}
-                created={post.data.created_utc}
-            />
-        }
-    };
+    // getMessage = (post, index) => {
+    //     if (!post.data.over_18) {
+    //         return <Message
+    //             key={index.toString()}
+    //             index={index}
+    //             title={post.data.title}
+    //             author={post.data.author}
+    //             url={post.data.permalink + ".json?limit=12&sort=top&raw_json=1"}
+    //             permalink={"https://www.reddit.com" + post.data.permalink}
+    //             upvotes={post.data.score}
+    //             downvotes={post.data.downs}
+    //             gildings={post.data.gildings}
+    //             handleThreadOpen={this.handleThreadOpen}
+    //             isToggleOn={this.state.isToggleOn}
+    //             activeMessage={this.state.activeMessage}
+    //             media={this.getMedia(post.data, index)}
+    //             created={post.data.created_utc}
+    //         />
+    //     }
+    // };
 
     const { isLoading, posts } = this.state;
     return (
         <React.Fragment>
             <div className={!this.state.isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
-                {!isLoading ? (
+                {/* {!isLoading ? (
                     posts.map((post, index) => this.getMessage(post, index))
                 ) : (
                     <p className="loading">Loading...</p>
-                )}
+                )} */}
             </div>
             <div className={!this.state.isToggleOn ? 'threads-closed' : 'threads-open'}>
                 <Thread
