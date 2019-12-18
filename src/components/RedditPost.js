@@ -5,6 +5,17 @@ import Thread from "./Thread";
 
 
 const  RedditPost = props => {
+
+    const [toggle, setToggle] = useState(false);
+    const [url, setURL] = useState('https://www.reddit.com/r/AskReddit/comments/aus97z/bartenders_of_reddit_what_is_the_strangest/.json?limit=5&sort=top&raw_json=1')
+    const [activeMessage, setActiveMessage ] = useState('tests index');
+    const [media, setMedia] = useState(null);
+    const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [errors, setErrors] = useState(null);
+    const [subCount, setSubCount] = useState(100);
+    const [moreLink, setMoreLink] = useState('https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1&after=t3_axkl33')
+
     // State.URL requires default value to work right even though it's overridden when clicking the button.
     // constructor(props) {
     //     super(props);
@@ -23,41 +34,41 @@ const  RedditPost = props => {
     //     this.handleThreadClose = this.handleThreadClose.bind(this);
     // }
 
-    const handleThreadOpen = (index, media) => {
-        this.setState(prevState => ({
-            isToggleOn: true,
-            url: "https://www.reddit.com" + this.state.posts[index].data.permalink + ".json?&raw_json=1&sort=" + this.props.sortType,
-            activeMessage: index,
-            media: media
-        }));
-        this.props.isThreadOpen();
-    };
+    // const handleThreadOpen = (index, media) => {
+    //     this.setState(prevState => ({
+    //         isToggleOn: true,
+    //         url: "https://www.reddit.com" + this.state.posts[index].data.permalink + ".json?&raw_json=1&sort=" + this.props.sortType,
+    //         activeMessage: index,
+    //         media: media
+    //     }));
+    //     this.props.isThreadOpen();
+    // };
 
-    const handleThreadClose = () => {
-        this.setState(prevState => ({
-            isToggleOn: !prevState.isToggleOn
-        }));
-        this.props.isThreadClose();
-    };
+    // const handleThreadClose = () => {
+    //     this.setState(prevState => ({
+    //         isToggleOn: !prevState.isToggleOn
+    //     }));
+    //     this.props.isThreadClose();
+    // };
 
     // Go through response to see if a GIF URL, YouTube Video URL, or image URL need to be sent to the Message component.
-   const getMedia = (data, index) => {
-        let media = this.state.media;
-        if (data.preview) {
-             if (data.url.includes("png") || data.url.includes("jpg")  || data.url.includes("youtube") || data.url.includes("youtu.be")) {
-                media = data.url;
-            } else if (data.preview.reddit_video_preview) {
-                media = data.preview;
-            } else if (data.media) {
-                if (data.media.reddit_video) {
-                    media = data.media.reddit_video.fallback_url;
-                }
-            }
-        } else {
-            media = null;
-        }
-        return media;
-    };
+//    const getMedia = (data, index) => {
+//         let media = this.state.media;
+//         if (data.preview) {
+//              if (data.url.includes("png") || data.url.includes("jpg")  || data.url.includes("youtube") || data.url.includes("youtu.be")) {
+//                 media = data.url;
+//             } else if (data.preview.reddit_video_preview) {
+//                 media = data.preview;
+//             } else if (data.media) {
+//                 if (data.media.reddit_video) {
+//                     media = data.media.reddit_video.fallback_url;
+//                 }
+//             }
+//         } else {
+//             media = null;
+//         }
+//         return media;
+//     };
 
     // Get initial posts.
     const getPosts = (url) => {
