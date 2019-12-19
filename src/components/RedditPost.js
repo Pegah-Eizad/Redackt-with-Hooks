@@ -6,7 +6,7 @@ import Thread from "./Thread";
 
 const  RedditPost = props => {
 
-    const [toggle, setToggle] = useState(false);
+    const [isToggleOn, setToggle] = useState(false);
     const [url, setURL] = useState('https://www.reddit.com/r/AskReddit/comments/aus97z/bartenders_of_reddit_what_is_the_strangest/.json?limit=5&sort=top&raw_json=1')
     const [activeMessage, setActiveMessage ] = useState('tests index');
     const [media, setMedia] = useState(null);
@@ -146,24 +146,23 @@ const  RedditPost = props => {
     //     }
     // };
 
-    const { isLoading, posts } = this.state;
     return (
         <React.Fragment>
-            <div className={!this.state.isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
+            <div className={!isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
                 {/* {!isLoading ? (
                     posts.map((post, index) => this.getMessage(post, index))
                 ) : (
                     <p className="loading">Loading...</p>
                 )} */}
             </div>
-            <div className={!this.state.isToggleOn ? 'threads-closed' : 'threads-open'}>
+            <div className={!isToggleOn ? 'threads-closed' : 'threads-open'}>
                 <Thread
-                    url={this.state.url}
-                    toggle={this.state.isToggleOn}
-                    posts={this.state.posts}
-                    activeSub={this.props.activeSub}
-                    handleThreadClose={this.handleThreadClose}
-                    media={this.state.media}
+                    url={url}
+                    toggle={isToggleOn}
+                    posts={posts}
+                    activeSub={props.activeSub}
+                    // handleThreadClose={this.handleThreadClose}
+                    media={media}
                 />
             </div>
         </React.Fragment>
