@@ -11,7 +11,7 @@ const  RedditPost = props => {
     const [activeMessage, setActiveMessage ] = useState('tests index');
     const [media, setMedia] = useState(null);
     const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState(null);
     const [subCount, setSubCount] = useState(100);
     const [moreLink, setMoreLink] = useState('https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1&after=t3_axkl33')
@@ -98,7 +98,7 @@ const  RedditPost = props => {
     };
 
     const getDefaultSubPosts = () => {
-        useEffect(() => this.getPosts(this.props.activeSubURL));
+        useEffect(() => getPosts(props.activeSubURL));
     }
 
     // Once the RedditPost props update:
@@ -125,35 +125,36 @@ const  RedditPost = props => {
 
     // Get message function to filter out NSFW posts so I don't randomly
     // see weiners when testing sort by new.
-    // getMessage = (post, index) => {
-    //     if (!post.data.over_18) {
-    //         return <Message
-    //             key={index.toString()}
-    //             index={index}
-    //             title={post.data.title}
-    //             author={post.data.author}
-    //             url={post.data.permalink + ".json?limit=12&sort=top&raw_json=1"}
-    //             permalink={"https://www.reddit.com" + post.data.permalink}
-    //             upvotes={post.data.score}
-    //             downvotes={post.data.downs}
-    //             gildings={post.data.gildings}
-    //             handleThreadOpen={this.handleThreadOpen}
-    //             isToggleOn={this.state.isToggleOn}
-    //             activeMessage={this.state.activeMessage}
-    //             media={this.getMedia(post.data, index)}
-    //             created={post.data.created_utc}
-    //         />
-    //     }
-    // };
+    const getMessage = (post, index) => {
+        if (!post.data.over_18) {
+            return <Message
+                key={index.toString()}
+                index={index}
+                title={post.data.title}
+                author={post.data.author}
+                url={post.data.permalink + ".json?limit=12&sort=top&raw_json=1"}
+                permalink={"https://www.reddit.com" + post.data.permalink}
+                upvotes={post.data.score}
+                downvotes={post.data.downs}
+                gildings={post.data.gildings}
+                handleThreadOpen={this.handleThreadOpen}
+                isToggleOn={this.state.isToggleOn}
+                activeMessage={this.state.activeMessage}
+                media={this.getMedia(post.data, index)}
+                created={post.data.created_utc}
+            />
+     }
+    };
 
     return (
         <React.Fragment>
             <div className={!isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
-                {/* {!isLoading ? (
-                    posts.map((post, index) => this.getMessage(post, index))
+                {!isLoading ? (
+                    getDefaultSubPosts()
+                    // posts.map((post, index) => this.getMessage(post, index))
                 ) : (
                     <p className="loading">Loading...</p>
-                )} */}
+                )}
             </div>
             <div className={!isToggleOn ? 'threads-closed' : 'threads-open'}>
                 <Thread

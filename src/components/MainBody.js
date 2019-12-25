@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from './Header.js';
 import RedditPost from "./RedditPost.js";
 import addFileIcon from "../images/add-file-icon.svg";
