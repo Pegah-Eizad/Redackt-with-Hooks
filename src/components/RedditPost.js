@@ -80,7 +80,7 @@ const  RedditPost = props => {
                 });
                 this.props.getSubCount(response.data.data.children[0].data.subreddit_subscribers);
             })
-            .catch(error => this.setState({ error, isLoading: false }));
+            .catch((error) => {setErrors(error); setIsLoading(false)});
     };
 
     // Get more posts after initial posts.
@@ -94,7 +94,7 @@ const  RedditPost = props => {
                     }
                 });
             })
-            .catch(error => this.setState({ error, isLoading: false }));
+            .catch((error) => {setErrors(error); setIsLoading(false)});
     };
 
     const getDefaultSubPosts = () => {
