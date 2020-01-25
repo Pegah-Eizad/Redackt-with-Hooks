@@ -74,28 +74,24 @@ const  RedditPost = props => {
     const getPosts = (url) => {
         axios.get(url)
             .then(response => {
-                this.setState({
-                    posts: response.data.data.children,
-                    isLoading: false,
-                });
-                this.props.getSubCount(response.data.data.children[0].data.subreddit_subscribers);
+                    setPosts(response.data.data.children),
+                    setIsLoading(false)
+                    props.getSubCount(response.data.data.children[0].data.subreddit_subscribers);
             })
-            .catch((error) => {setErrors(error); setIsLoading(false)});
+            .catch(error => setErrors(error));
     };
 
     // Get more posts after initial posts.
-    const getMorePosts = (url) => {
-        axios.get(url)
-            .then(response => {
-                this.setState( prevState => {
-                    return {
-                        posts: [...prevState.posts, ...response.data.data.children],
-                        isLoading: false
-                    }
-                });
-            })
-            .catch((error) => {setErrors(error); setIsLoading(false)});
-    };
+    // const getMorePosts = (url) => {
+    //     axios.get(url)
+    //         .then(response => {
+    //                 return {
+    //                     setPosts([...prevState.posts, ...response.data.data.children]),
+    //                     setIsLoading(false)
+    //                 }
+    //         })
+    //         .catch(error => setErrors(error));
+    // };
 
     const getDefaultSubPosts = () => {
         useEffect(() => getPosts(props.activeSubURL));
@@ -158,7 +154,7 @@ const  RedditPost = props => {
             </div>
             <div className={!isToggleOn ? 'threads-closed' : 'threads-open'}>
                 <Thread
-                    url={url}
+                    activeSubURL={url}
                     toggle={isToggleOn}
                     posts={posts}
                     activeSub={props.activeSub}

@@ -1,50 +1,56 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect }  from 'react';
 import axios from "axios";
 import Message from "./Message.js";
 
-export default class Thread extends Component {
-    state = {
-        posts: [],
-        isLoading: true,
-        errors: null
-    };
+const Thread = (props) => {
+    // state = {
+    //     posts: [],
+    //     isLoading: true,
+    //     errors: null
+    // };
+
+    const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [errors, setErrors] = useState(null);
 
     // Make data request through axios
-    getPosts() {
-        axios.get(this.props.url)
+    const getPosts = (url) => {
+        axios.get(url)
         // Once we get a response and store data, let's change the loading state
             .then(response => {
-                this.setState({
-                    posts: response.data,
-                    isLoading: false
-                });
+                return response;
             })
             // If we catch any errors connecting, let's update accordingly
-            .catch(error => this.setState({ error, isLoading: false }));
+            // .catch(error => this.setState({ error, isLoading: false }));
     }
 
-    componentDidMount() {
-        this.getPosts();
-    }
+    // const getDefaultSubPosts = () => {
+    //     useEffect(() => getPosts(props.activeSubURL));
+    // }
+
+    useEffect((prevProps) => {
+        if (props.url !== prevProps.url) {
+            response = getPosts();
+            setPosts(response.data);
+            setIsLoading(false);
+        }
+    }, [props]);
 
     // Set new URL state if props updated and get new posts. (I think this is how it should work?)
-    componentDidUpdate(prevProps) {
-        if (this.props.url !== prevProps.url) {
-            this.getPosts();
-        }
-    }
-
-    render() {
-        const { isLoading, posts } = this.state;
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.url !== prevProps.url) {
+    //         this.getPosts();
+    //     }
+    // }
         return (
             <div className={"thread-content"}>
                 <div className="thread-header">
                     <div className="thread-title">
                         <h3>Thread</h3>
-                        <p key={0}># {this.props.activeSub}</p>
+                        <p key={0}># {props.activeSub}</p>
                     </div>
                     <div className="thread-button-close">
-                        <button onClick={() => this.props.handleThreadClose()}>X</button>
+                        <button onClick={() => props.handleThreadClose()}>X</button>
                     </div>
                 </div>
                 {!isLoading ? (
@@ -59,7 +65,7 @@ export default class Thread extends Component {
                                         author={post.data.author}
                                         upvotes={post.data.score}
                                         gildings={post.data.gildings}
-                                        media={this.props.media}
+                                        media={props.media}
                                         noClick={true}
                                     />
                                 </div>
@@ -86,7 +92,8 @@ export default class Thread extends Component {
                     <p>Loading...</p>
                 )}
             </div>
-        )
-    }
+        )  
 }
+
+export default Thread;
 
