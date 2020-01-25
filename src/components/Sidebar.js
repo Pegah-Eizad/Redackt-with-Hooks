@@ -89,7 +89,7 @@ const Sidebar = props => {
 						<h3>Redackt</h3>
 						<img src={bell} alt="bell-icon"/>
 					</div>
-					<p>romanparkhomenko</p>
+					<p>PegahEizad</p>
 				</div>
 
 				<div className="sidebar-threads">
