@@ -16,24 +16,6 @@ const  RedditPost = props => {
     const [subCount, setSubCount] = useState(100);
     const [moreLink, setMoreLink] = useState('https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1&after=t3_axkl33')
 
-    // State.URL requires default value to work right even though it's overridden when clicking the button.
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         posts: [],
-    //         isLoading: true,
-    //         errors: null,
-    //         isToggleOn: false,
-    //         moreLink: "https://www.reddit.com/r/askreddit/top.json?limit=10&raw_json=1&after=t3_axkl33",
-    //         url: "https://www.reddit.com/r/AskReddit/comments/aus97z/bartenders_of_reddit_what_is_the_strangest/.json?limit=5&sort=top&raw_json=1",
-    //         subCount: 100,
-    //         media: null
-    //     };
-    //     // This binding is necessary to make `this` work in the callback
-    //     this.handleThreadOpen = this.handleThreadOpen.bind(this);
-    //     this.handleThreadClose = this.handleThreadClose.bind(this);
-    // }
-
     // const handleThreadOpen = (index, media) => {
     //     this.setState(prevState => ({
     //         isToggleOn: true,
@@ -52,33 +34,22 @@ const  RedditPost = props => {
     // };
 
     // Go through response to see if a GIF URL, YouTube Video URL, or image URL need to be sent to the Message component.
-//    const getMedia = (data, index) => {
-//         let media = this.state.media;
-//         if (data.preview) {
-//              if (data.url.includes("png") || data.url.includes("jpg")  || data.url.includes("youtube") || data.url.includes("youtu.be")) {
-//                 media = data.url;
-//             } else if (data.preview.reddit_video_preview) {
-//                 media = data.preview;
-//             } else if (data.media) {
-//                 if (data.media.reddit_video) {
-//                     media = data.media.reddit_video.fallback_url;
-//                 }
-//             }
-//         } else {
-//             media = null;
-//         }
-//         return media;
-//     };
-
-    // Get initial posts.
-    const getPosts = (url) => {
-        axios.get(url)
-            .then(response => {
-                    setPosts(response.data.data.children),
-                    setIsLoading(false)
-                    props.getSubCount(response.data.data.children[0].data.subreddit_subscribers);
-            })
-            .catch(error => setErrors(error));
+   const getMedia = (data, index) => {
+        let media = media;
+        if (data.preview) {
+             if (data.url.includes("png") || data.url.includes("jpg")  || data.url.includes("youtube") || data.url.includes("youtu.be")) {
+                media = data.url;
+            } else if (data.preview.reddit_video_preview) {
+                media = data.preview;
+            } else if (data.media) {
+                if (data.media.reddit_video) {
+                    media = data.media.reddit_video.fallback_url;
+                }
+            }
+        } else {
+            media = null;
+        }
+        return media;
     };
 
     // Get more posts after initial posts.
@@ -93,9 +64,16 @@ const  RedditPost = props => {
     //         .catch(error => setErrors(error));
     // };
 
-    const getDefaultSubPosts = () => {
-        useEffect(() => getPosts(props.activeSubURL));
-    }
+        useEffect(() => {
+            axios.get(props.activeSubURL)
+            .then(response => {
+                setPosts(response.data.data.children);
+                setIsLoading(false);
+                props.getSubCount(response.data.data.children[0].data.subreddit_subscribers)
+            })
+            .catch(error => setErrors(error));
+        }, [props]);
+
 
     // Once the RedditPost props update:
     // 1) If more posts is clicked, getMorePosts based on the activeSubURL.
@@ -133,10 +111,10 @@ const  RedditPost = props => {
                 upvotes={post.data.score}
                 downvotes={post.data.downs}
                 gildings={post.data.gildings}
-                handleThreadOpen={this.handleThreadOpen}
-                isToggleOn={this.state.isToggleOn}
-                activeMessage={this.state.activeMessage}
-                media={this.getMedia(post.data, index)}
+                // handleThreadOpen={this.handleThreadOpen}
+                // isToggleOn={this.state.isToggleOn}
+                // activeMessage={this.state.activeMessage}
+                media= {getMedia(post.data, index)}
                 created={post.data.created_utc}
             />
      }
@@ -146,8 +124,8 @@ const  RedditPost = props => {
         <React.Fragment>
             <div className={!isToggleOn ? 'main-content threads-close' : 'main-content threads-open'}>
                 {!isLoading ? (
-                    getDefaultSubPosts()
-                    // posts.map((post, index) => this.getMessage(post, index))
+                    // getDefaultSubPosts(),
+                    posts.map((post, index) => getMessage(post, index))
                 ) : (
                     <p className="loading">Loading...</p>
                 )}

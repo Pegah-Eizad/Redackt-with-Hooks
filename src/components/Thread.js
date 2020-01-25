@@ -18,7 +18,8 @@ const Thread = (props) => {
         axios.get(url)
         // Once we get a response and store data, let's change the loading state
             .then(response => {
-                return response;
+                setPosts(response.data);
+                setIsLoading(false);
             })
             // If we catch any errors connecting, let's update accordingly
             // .catch(error => this.setState({ error, isLoading: false }));
@@ -29,10 +30,10 @@ const Thread = (props) => {
     // }
 
     useEffect((prevProps) => {
-        if (props.url !== prevProps.url) {
-            response = getPosts();
-            setPosts(response.data);
-            setIsLoading(false);
+        if (props.activeSubURL) {
+            // response = getPosts();
+            getPosts(props.activeSubURL);
+            //setPosts('empty');  
         }
     }, [props]);
 
