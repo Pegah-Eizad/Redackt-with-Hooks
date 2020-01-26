@@ -35,7 +35,7 @@ export default class Media extends Component {
     render() {
         const source = this.getSource();
         return (
-            <LazyLoad height={200} offset={100} overflow={true} resize={true} once={true}>
+            <LazyLoad height={0}>
                 <div className="mediaDiv">
                     {source.indexOf("v.redd.it") !== -1 ? (
                         <video controls={0} src={source} autoPlay={1} loop={1} muted={1}></video>

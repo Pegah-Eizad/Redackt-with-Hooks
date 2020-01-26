@@ -4,7 +4,7 @@ import RedditPost from "./RedditPost.js";
 import addFileIcon from "../images/add-file-icon.svg";
 import atIcon from "../images/at-icon.svg";
 
-const Mainbody = props => {
+const Mainbody = (props) => {
 
     // state = {
     //   subCount: 100,

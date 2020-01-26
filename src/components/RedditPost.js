@@ -4,7 +4,7 @@ import Message from "./Message";
 import Thread from "./Thread";
 
 
-const  RedditPost = props => {
+const RedditPost = (props) => {
 
     const [isToggleOn, setToggle] = useState(false);
     const [url, setURL] = useState('https://www.reddit.com/r/AskReddit/comments/aus97z/bartenders_of_reddit_what_is_the_strangest/.json?limit=5&sort=top&raw_json=1')

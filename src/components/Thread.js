@@ -97,4 +97,3 @@ const Thread = (props) => {
 }
 
 export default Thread;
-
