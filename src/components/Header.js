@@ -165,11 +165,11 @@ export default class Header extends Component {
                     </div>
                 </div>
             </header>
-                <Modal
+                {/* <Modal
                     isModalOpen={this.state.isModalOpen}
                     handleModalClose={this.handleModalClose}
                     activeSub={this.props.activeSub}
-                />
+                /> */}
             </React.Fragment>
         );
     }

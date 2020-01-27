@@ -4,7 +4,7 @@ import messageIcon from '../images/message-icon.svg';
 import linkIcon from '../images/link-icon.svg';
 import Media from "./Media";
 
-export default class Message extends Component {
+export default class Post extends Component {
 
     state = {
         mediaExpanded: false

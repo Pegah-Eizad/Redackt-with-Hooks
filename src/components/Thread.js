@@ -1,6 +1,6 @@
 import React, { useState, useEffect }  from 'react';
 import axios from "axios";
-import Message from "./Message.js";
+import Post from "./Post.js";
 
 const Thread = (props) => {
     // state = {
@@ -60,7 +60,7 @@ const Thread = (props) => {
                             return post.data.children.map((post, index) => {
                                 return <React.Fragment key={index}>
                                     <div className="threadTopic">
-                                    <Message
+                                    <Post
                                         key={index.toString()}
                                         title={post.data.title}
                                         author={post.data.author}
@@ -77,7 +77,7 @@ const Thread = (props) => {
                         } else {
                             return post.data.children.map((post, index) => {
                                 return <React.Fragment key={index}>
-                                    <Message
+                                    <Post
                                     key={index.toString()}
                                     title={post.data.body}
                                     author={post.data.author}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Message from "./Message.js";
+import Post from "./Post.js";
 import lookupIcon from "../images/lookup-icon.svg";
 
 export default class Modal extends Component {
@@ -120,7 +120,7 @@ export default class Modal extends Component {
                             <h3 className="search-header">Search Results</h3>
                             {!isLoading ? (
                                 posts.map((post, index) =>
-                                    <Message
+                                    <Post
                                         key={index.toString()}
                                         index={index}
                                         title={post.data.title}

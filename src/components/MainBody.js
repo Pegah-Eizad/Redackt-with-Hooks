@@ -5,50 +5,6 @@ import addFileIcon from "../images/add-file-icon.svg";
 import atIcon from "../images/at-icon.svg";
 
 const Mainbody = (props) => {
-
-    // state = {
-    //   subCount: 100,
-    //   isToggleOn: false,
-    //   getMorePosts: false
-    // };
-
-    //Function to get the subscriber count of the subreddit.
-    // getSubCount = (subCount) => {
-    //   if (subCount > 999999) {
-    //       subCount = (subCount/1000000).toFixed(1) + 'M';
-    //   } else if (subCount > 999) {
-    //       subCount = (subCount/1000).toFixed(1) + 'k';
-    //   } else {
-    //       subCount = subCount + 0;
-    //   }
-    //   this.setState(prevState => {
-    //     return {
-    //         subCount: subCount > 999 ? (subCount/1000).toFixed(1) + 'k' : subCount
-    //     }
-    //   })
-    // };
-
-    // Function to open thread
-    // isThreadOpen = () => {
-    //     this.setState(prevState => ({
-    //         isToggleOn: true
-    //     }));
-    // };
-
-    // // Function to open thread
-    // isThreadClose = () => {
-    //     this.setState(prevState => ({
-    //         isToggleOn: false
-    //     }));
-    // };
-
-    // //Get more posts in main body.
-    // getMorePosts = () => {
-    //     this.setState(prevState => ({
-    //         getMorePosts: !prevState.getMorePosts
-    //     }));
-    // };
-
     console.log('Mainbody activeSub:::', props.activeSub);
     console.log('Mainbody activeSubURL:::', props.activeSubURL);
     return (
