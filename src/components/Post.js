@@ -1,18 +1,16 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 // import headshot from '../images/slack-logo-icon.png';
 import messageIcon from '../images/message-icon.svg';
 import linkIcon from '../images/link-icon.svg';
 import Media from "./Media";
 
-export default class Post extends Component {
+const Post = (props) => {
 
-    state = {
-        mediaExpanded: false
-    };
+    const [mediaExpanded, setMediaExpanded] = useState(false);
 
     // Check if media prop received from RedditPost component and pass URL.
-    getMedia = () => {
-        let media = this.props.media;
+    const getMedia = () => {
+        let media = props.media;
         if (media) {
             if (media.reddit_video_preview) {
                 return media.reddit_video_preview;
@@ -25,50 +23,50 @@ export default class Post extends Component {
     };
 
     //Get upvote number on post
-    getScore = () => {
-        return this.props.upvotes > 999 ? (this.props.upvotes/1000).toFixed(1) + 'k' : this.props.upvotes;
+    const getScore = () => {
+        return props.upvotes > 999 ? (props.upvotes/1000).toFixed(1) + 'k' : props.upvotes;
     };
 
-    getSilver = () => {
-      if (this.props.gildings) {
-          if (this.props.gildings.gid_1 > 0) {
+    const getSilver = () => {
+      if (props.gildings) {
+          if (props.gildings.gid_1 > 0) {
               return (
                   <div className="tooltip">
-                      <span className="tooltiptext tooltip-top"><strong>{this.props.gildings.gid_1}</strong> silver awards.</span>
-                      <button><span role="img" aria-label="bronze-award">&#x1F949;</span> {this.props.gildings.gid_1}</button>
+                      <span className="tooltiptext tooltip-top"><strong>{props.gildings.gid_1}</strong> silver awards.</span>
+                      <button><span role="img" aria-label="bronze-award">&#x1F949;</span> {props.gildings.gid_1}</button>
                   </div>
               )
           }
       }
     };
 
-    getGold = () => {
-        if (this.props.gildings) {
-            if (this.props.gildings.gid_2 > 0) {
+    const getGold = () => {
+        if (props.gildings) {
+            if (props.gildings.gid_2 > 0) {
                 return (
                     <div className="tooltip">
-                        <span className="tooltiptext tooltip-top"><strong>{this.props.gildings.gid_2}</strong> gold awards.</span>
-                        <button><span role="img" aria-label="gold-award">&#x1F948;</span> {this.props.gildings.gid_2}</button>
+                        <span className="tooltiptext tooltip-top"><strong>{props.gildings.gid_2}</strong> gold awards.</span>
+                        <button><span role="img" aria-label="gold-award">&#x1F948;</span> {props.gildings.gid_2}</button>
                     </div>
                 )
             }
         }
     };
 
-    getPlat = () => {
-        if (this.props.gildings) {
-            if (this.props.gildings.gid_3 > 0) {
+    const getPlat = () => {
+        if (props.gildings) {
+            if (props.gildings.gid_3 > 0) {
                 return (
                     <div className="tooltip">
-                        <span className="tooltiptext tooltip-top"><strong>{this.props.gildings.gid_3}</strong> platinum awards.</span>
-                        <button><span role="img" aria-label="platinum-award">&#x1F947;</span> {this.props.gildings.gid_3}</button>
+                        <span className="tooltiptext tooltip-top"><strong>{props.gildings.gid_3}</strong> platinum awards.</span>
+                        <button><span role="img" aria-label="platinum-award">&#x1F947;</span> {props.gildings.gid_3}</button>
                     </div>
                 )
             }
         }
     };
 
-    getPostDate = (created) => {
+    const getPostDate = (created) => {
         if (created) {
             let seconds = Math.floor((new Date() - created * 1000) / 1000);
             // let date = new Date(created * 1000);
@@ -95,53 +93,40 @@ export default class Post extends Component {
             return Math.floor(seconds) + " seconds ago";
         }
     };
-
-    // Open thread if clicked inside message box.
-    handleClick = (e) => {
-        if (!this.node.contains(e.target) && !this.props.noClick) {
-            this.props.handleThreadOpen(this.props.index, this.props.media)
-        }
-    };
-
-    // Make media element pop up in modal
-    expandMedia = (prevState) => {
-        if (this.state.mediaExpanded !== prevState.mediaExpanded) {
-            this.setState(prevState => ({
-                mediaExpanded: !prevState.mediaExpanded
-            }));
-        }
-    };
+    
 
     // Generate random "profile pic" for messages.
-    getRandomThumbnail = () => {
-        this.setState({
-            avatar: "https://picsum.photos/100/100/?image=" + (Math.floor(Math.random() * 200))
-        });
-    };
 
-    componentDidMount() {
-        this.getRandomThumbnail();
-    }
+     const setUserAvatar = () => { 
+         return (('https://picsum.photos/100/100/?image='+ (Math.floor(Math.random() * 200))));
+     }
 
-    render() {
-      const hasMedia = this.getMedia();
-      const score = this.getScore();
-      const messageBlockClassname = this.props.activeMessage === this.props.index && this.props.isToggleOn ? 'message-block active' : 'message-block';
+    // getRandomThumbnail = () => {
+        
+    // };
+
+    // componentDidMount() {
+    //     this.getRandomThumbnail();
+    // }
+
+      const hasMedia = getMedia();
+      const score = getScore();
+      const messageBlockClassname = props.activeMessage === props.index && props.isToggleOn ? 'message-block active' : 'message-block';
 
     return (
         <React.Fragment>
-          <div className={messageBlockClassname} onClick={(e) => this.handleClick(e)}>
+          <div className={messageBlockClassname}>
             <div className="headshot">
-                <img src={this.state.avatar} alt="headshot placeholder" />
+                <img src={setUserAvatar()} alt="headshot placeholder" />
             </div>
             <div className="message">
-                <p className="author">{this.props.author} <span className="date">{this.getPostDate(this.props.created)}</span></p>
-                <p className="title">{this.props.title}</p>
-                <div className={this.state.mediaExpanded ? 'media expanded' : 'media'} onClick={!this.props.noClick ? () => this.expandMedia(this.state.mediaExpanded) : null} ref={node => this.node = node}>
+                <p className="author">{props.author} <span className="date">{getPostDate(props.created)}</span></p>
+                <p className="title">{props.title}</p>
+                <div className={mediaExpanded ? 'media expanded' : 'media'}  ref={node => node}>
                     {hasMedia ? (
                         <Media
                             key={1}
-                            url={this.getMedia()}
+                            url={getMedia()}
                         />
                     ) : (
                         <p></p>
@@ -152,21 +137,21 @@ export default class Post extends Component {
                         <span className="tooltiptext tooltip-top"><strong>{score}</strong> people reacted with upvote.</span>
                         <button><span role="img" aria-label="thumbs-up">&#x1F44D;</span> {score}</button>
                     </div>
-                    {this.getSilver()}
-                    {this.getGold()}
-                    {this.getPlat()}
+                    {getSilver()}
+                    {getGold()}
+                    {getPlat()}
                 </div>
             </div>
             <div className="thread-button">
                 <div className="tooltip">
                     <span className="tooltiptext tooltip-top">Open Thread</span>
-                    <button className={"thread-icon"} onClick={() => this.props.handleThreadOpen(this.props.index, this.props.media)}>
+                    <button className={"thread-icon"} onClick={() => props.handleThreadOpen(props.index, props.media)}>
                         <img src={messageIcon} alt="Open Thread"/>
                     </button>
                 </div>
                 <div className="tooltip">
                     <span className="tooltiptext tooltip-top">Open in Reddit</span>
-                    <button className={"link-icon"} onClick={() => window.open(this.props.permalink)}>
+                    <button className={"link-icon"} onClick={() => window.open(props.permalink)}>
                         <img src={linkIcon} alt="Open in Reddit"/>
                     </button>
                 </div>
@@ -174,6 +159,6 @@ export default class Post extends Component {
           </div>
         </React.Fragment>
     );
-  }
 }
 
+export default Post;
